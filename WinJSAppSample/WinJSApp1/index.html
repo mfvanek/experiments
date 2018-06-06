@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>WinJSApp1</title>
+    <link href="WinJS/css/ui-light.css" rel="stylesheet" />
+    <script src="WinJS/js/base.js"></script>
+    <script src="WinJS/js/ui.js"></script>
+    <link href="css/default.css" rel="stylesheet" />
+    <script src="js/main.js"></script>
+    <script src="js/family.js"></script>
+</head>
+<body class="win-type-body">
+    <div id="app">
+        <div class="splitView" data-win-control="WinJS.UI.SplitView">
+            <!-- Pane area -->
+            <div>
+                <div class="header">
+                    <button class="win-splitviewpanetoggle"
+                            data-win-control="WinJS.UI.SplitViewPaneToggle"
+                            data-win-options="{ splitView: select('.splitView') }"></button>
+                    <div class="title">SplitView Pane area</div>
+                </div>
+
+                <div class="nav-commands">
+                    <div data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{label: 'Home', icon: 'home'}"></div>
+                    <div data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{label: 'Favorite', icon: 'favorite'}"></div>
+                    <div data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{label: 'Settings', icon: 'settings'}"></div>
+                </div>
+            </div>
+
+            <!-- Content area -->
+            <div class="contenttext">
+                <h2 class="win-h2">SplitView Content area</h2>
+
+                <p>Click the 'Show me the world!' button</p>
+                <button class="win-button action" id="showButton">Show me the world!</button>
+                <br /><br />
+
+                <!-- Scenario Controls -->
+                <div id="worldFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Hello World}">
+                    <div>Hello!</div>
+                    <button class="win-button" id="closeButton">Close flyout</button>
+                </div>
+
+                <div id="ratingControlHost" data-win-control="WinJS.UI.Rating"
+                     data-win-options="{maxRating: 10, averageRating: 6}">
+                </div>
+
+                <h2 class="win-h2">HTML Repeater Control with <code>select</code> HTML element</h2>
+                <select class="win-dropdown" data-win-control="WinJS.UI.Repeater" data-win-options="{data: MyFamily.members}">
+                    <option data-win-bind="value: id; textContent: name "></option>
+                </select>
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
