@@ -23,8 +23,8 @@
                 </div>
 
                 <div class="nav-commands">
-                    <div data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{label: 'Home', icon: 'home'}"></div>
-                    <div data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{label: 'Favorite', icon: 'favorite'}"></div>
+                    <div data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{label: 'Home', icon: 'home', oninvoked: mySplitView.homeClicked}"></div>
+                    <div data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{label: 'Family', icon: 'favorite', oninvoked: mySplitView.familyClicked}"></div>
                     <div data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{label: 'Settings', icon: 'settings'}"></div>
                 </div>
             </div>

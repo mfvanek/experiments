@@ -8,6 +8,16 @@
 	var activation = Windows.ApplicationModel.Activation;
     var isFirstActivation = true;
 
+    var mySplitView = window.mySplitView = {
+        splitView: null,
+        homeClicked: WinJS.UI.eventHandler(function (ev) {
+            document.getElementById("worldFlyout").winControl.show(this);
+        }),
+        familyClicked: WinJS.UI.eventHandler(function (ev) {
+            document.getElementById("worldFlyout").winControl.show(this);
+        }),
+    };
+
 	app.onactivated = function (args) {
 		if (args.detail.kind === activation.ActivationKind.voiceCommand) {
 			// TODO: Handle relevant ActivationKinds. For example, if your app can be started by voice commands,
@@ -44,12 +54,8 @@
                 //document.getElementById("worldFlyout").addEventListener("afterhide", onDismiss, false);
                 document.getElementById("ratingControlHost").addEventListener("change", ratingChanged, false);
             }).done(function () {
-                var splitView = document.querySelector(".splitView").winControl;
-                new WinJS.UI._WinKeyboard(splitView.paneElement); // Temporary workaround: Draw keyboard focus visuals on NavBarCommands
-                var commands = document.querySelectorAll('.nav-commands div[data-win-control="WinJS.UI.SplitViewCommand"]');
-                if (commands !== null) {
-                    //commands.forEach.addEventListener('invoked', doSomethingFn);
-                }
+                mySplitView.splitView = document.querySelector(".splitView").winControl;
+                new WinJS.UI._WinKeyboard(mySplitView.splitView.paneElement);
             }));
 		}
 
@@ -73,12 +79,6 @@
 
     function ratingChanged(event) {
         //let showButton = document.getElementById("showButton");
-        document.getElementById("worldFlyout").winControl.show(this);
-    }
-
-    function doSomethingFn() {
-        //var renderHost = document.querySelector(".renderingPageControls-renderedControl");
-        //if (renderHost !== null) WinJS.UI.Pages.render("/pages/somepage.html", renderHost).done();
         document.getElementById("worldFlyout").winControl.show(this);
     }
 
