@@ -48,3 +48,20 @@
     margin-left: 20px;
     margin-top: 6px;
 }
+
+.imperativeToolBar {
+    margin-top: 50px;
+}
+
+.status {
+    margin-top: 12px;
+}
+
+.toolbar-bottom {
+    /*
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+        */
+}

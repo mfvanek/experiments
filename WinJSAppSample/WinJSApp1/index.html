@@ -9,6 +9,7 @@
     <link href="css/default.css" rel="stylesheet" />
     <script src="js/main.js"></script>
     <script src="js/family.js"></script>
+    <script src="js/toolbar.js"></script>
 </head>
 <body class="win-type-body">
     <div id="app">
@@ -53,6 +54,11 @@
                 </select>
                 <br />
                 <br />
+
+                <div class="toolbar-bottom">
+                    <div class="imperativeToolBar" data-win-control="WinJS.UI.ToolBar" data-win-options="{data: MyToolBar.commandList}"></div>
+                    <div class="status"></div>
+                </div>
             </div>
         </div>
     </div>
