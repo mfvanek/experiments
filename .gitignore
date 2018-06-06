@@ -2,3 +2,8 @@
 /MetroLogSample/LogTest/obj
 /MetroLogSample/LogTest/bin
 /MetroLogSample/.vs
+/WinJSAppSample/packages
+/WinJSAppSample/.vs
+/WinJSAppSample/WinJSApp1/bld
+/WinJSAppSample/WinJSApp1/bin
+/WinJSAppSample/WinJSApp1/*.user
