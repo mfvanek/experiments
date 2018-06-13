@@ -16,6 +16,7 @@ namespace SerelogSample
             config.MinimumLevel.Debug()
                 .Enrich.WithThreadId()
                 .WriteTo.Console(outputTemplate: template)
+                .WriteTo.MySink(100, template)
                 .WriteTo.File("mySerilogTest.log", rollingInterval: RollingInterval.Day, outputTemplate: template);
             Log.Logger = config.CreateLogger();
             Logger = Log.Logger.ForContext<Program>();
@@ -23,14 +24,21 @@ namespace SerelogSample
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Testing Serilog");
-            for (uint i = 1; i <= COUNT; ++i)
+            try
             {
-                Logger.Information($"counter = {i}");
+                Console.WriteLine("Testing Serilog");
+                for (uint i = 1; i <= COUNT; ++i)
+                {
+                    Logger.Information($"counter = {i}");
+                }
+                new SimpleDuck().Quack();
+                Console.WriteLine("Test is done. Press any key and then check app folder");
+                Console.ReadKey();
             }
-            new SimpleDuck().Quack();
-            Console.WriteLine("Test is done. Press any key and then check app folder");
-            Console.ReadKey();
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
     }
 }
