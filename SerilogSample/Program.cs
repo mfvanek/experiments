@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using System;
 
-namespace SerelogSample
+namespace SerilogSample
 {
     class Program
     {

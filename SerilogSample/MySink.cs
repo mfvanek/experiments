@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace SerelogSample
+namespace SerilogSample
 {
     public class MySink: PeriodicBatchingSink
     {
