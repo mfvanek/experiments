@@ -8,3 +8,7 @@
 /WinJSAppSample/WinJSApp1/bin
 /WinJSAppSample/WinJSApp1/*.user
 /.vs
+/SerilogSample/.vs
+/SerilogSample/packages
+/SerilogSample/bin
+/SerilogSample/obj
