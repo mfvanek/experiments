@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace ResumeModels.Models
 {
-    public class FakePersonRepository: IPersonRepository
+    public class FakePersonRepository : IPersonRepository
     {
         static string tpl = "dd.MM.yyyy";
 

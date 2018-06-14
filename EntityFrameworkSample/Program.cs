@@ -6,17 +6,7 @@ namespace EntityFrameworkSample
 {
     class Program
     {
-        static readonly IKernel kernel = new StandardKernel();
-
-        static Program()
-        {
-            AddBindings();
-        }
-
-        private static void AddBindings()
-        {
-            kernel.Bind<IPersonRepository>().To<FakePersonRepository>();
-        }
+        static readonly IKernel kernel = new StandardKernel(new ResumeModule());
 
         static void Main(string[] args)
         {
@@ -25,6 +15,13 @@ namespace EntityFrameworkSample
             {
                 Console.WriteLine($"person = {person.FullName}, {person.Age} year(s)");
             }
+
+            //using (var db = new PersonDbContext())
+            //{
+            //    db.Persons.AddRange(persons);
+            //    db.SaveChanges();
+            //    Console.WriteLine("Data saved");
+            //}
             Console.ReadKey();
         }
     }
