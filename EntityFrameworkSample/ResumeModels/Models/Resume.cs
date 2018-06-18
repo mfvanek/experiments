@@ -9,5 +9,7 @@ namespace ResumeModels.Models
         [Key]
         public long ResumeId { get; set; }
         public string Summary { get; set; }
+        public long PersonId { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

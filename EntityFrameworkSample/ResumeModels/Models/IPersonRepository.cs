@@ -5,5 +5,7 @@ namespace ResumeModels.Models
     public interface IPersonRepository
     {
         IEnumerable<Person> GetPersons();
+
+        int GetPersonsCount();
     }
 }

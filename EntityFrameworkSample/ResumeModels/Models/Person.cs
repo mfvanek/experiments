@@ -1,19 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ResumeModels
+namespace ResumeModels.Models
 {
     [Table("Persons")]
     public class Person
     {
         [Key]
         public long PersonId { get; set; }
+        [Required]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public DateTime BirthDate { get; set; }
+        public virtual ICollection<Resume> Resumes { get; set; }
 
+        [NotMapped]
         public string FullName
         {
             get
@@ -22,6 +28,7 @@ namespace ResumeModels
             }
         }
 
+        [NotMapped]
         public int Age
         {
             get

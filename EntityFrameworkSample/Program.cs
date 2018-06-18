@@ -13,16 +13,25 @@ namespace EntityFrameworkSample
             var persons = kernel.Get<IPersonRepository>().GetPersons();
             foreach (var person in persons)
             {
-                Console.WriteLine($"person = {person.FullName}, {person.Age} year(s)");
+                 Console.WriteLine($"{person.FullName} is {person.Age} year(s) old and has {person.Resumes?.Count ?? 0} resume(s)");
             }
 
-            //using (var db = new PersonDbContext())
-            //{
-            //    db.Persons.AddRange(persons);
-            //    db.SaveChanges();
-            //    Console.WriteLine("Data saved");
-            //}
+            if (IsNeedInitializeDb())
+            {
+                InitDb();
+            }
             Console.ReadKey();
+        }
+
+        private static bool IsNeedInitializeDb()
+        {
+            return kernel.Get<IPersonRepository>().GetPersonsCount() <= 0;
+        }
+
+
+        private static void InitDb()
+        {
+            kernel.Get<DbInitializer>().Init();
         }
     }
 }

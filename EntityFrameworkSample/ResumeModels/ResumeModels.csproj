@@ -47,6 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201806141404188_InitialCreate.cs" />
+    <Compile Include="Migrations\201806141404188_InitialCreate.Designer.cs">
+      <DependentUpon>201806141404188_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181221532_resumes-by-person.cs" />
+    <Compile Include="Migrations\201806181221532_resumes-by-person.Designer.cs">
+      <DependentUpon>201806181221532_resumes-by-person.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EFPersonRepository.cs" />
     <Compile Include="Models\FakePersonRepository.cs" />
     <Compile Include="Models\IPersonRepository.cs" />
@@ -58,6 +67,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806141404188_InitialCreate.resx">
+      <DependentUpon>201806141404188_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181221532_resumes-by-person.resx">
+      <DependentUpon>201806181221532_resumes-by-person.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

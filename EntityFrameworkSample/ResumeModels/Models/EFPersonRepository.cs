@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace ResumeModels.Models
 {
@@ -12,6 +13,17 @@ namespace ResumeModels.Models
         }
 
         public IEnumerable<Person> GetPersons()
+        {
+            return GetPersonsRaw();
+        }
+
+        public int GetPersonsCount()
+        {
+            int count = GetPersonsRaw().CountAsync().Result;
+            return count;
+        }
+
+        private DbSet<Person> GetPersonsRaw()
         {
             return context.Persons;
         }

@@ -7,8 +7,8 @@ namespace EntityFrameworkSample
     {
         public override void Load()
         {
-            //Bind<IPersonRepository>().To<FakePersonRepository>();
             Bind<IPersonRepository>().To<EFPersonRepository>();
+            Bind<IPersonRepository>().To<FakePersonRepository>().WhenInjectedInto<DbInitializer>();
         }
     }
 }
