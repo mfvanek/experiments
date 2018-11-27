@@ -2,9 +2,9 @@
 
 namespace WildLife.Models
 {
-    public class Wolf : Animal
+    public class Wolf : CarnivorousAnimal
     {
-        public Wolf() : base(true) {}
+        public Wolf() {}
 
         public string Howl()
         {

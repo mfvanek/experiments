@@ -5,7 +5,10 @@
         protected Animal(bool carnivorous)
         {
             this.IsCarnivorous = carnivorous;
+            this.IsAlive = true;
         }
+
+        public bool IsAlive { get; protected set; }
 
         public bool IsCarnivorous { get; }
 
@@ -27,7 +30,13 @@
 
         public abstract void Bite(Animal target);
 
-        public abstract bool Attack(Animal target);
+        public virtual bool Attack(Animal target)
+        {
+            this.DoAttack(target);
+            return this.Eat(target);
+        }
+
+        protected abstract void DoAttack(Animal target);
 
         public virtual bool Eat(object target)
         {
@@ -37,7 +46,11 @@
             if (this.IsCarnivorous)
             {
                 // Carnivores eat only herbivores
-                return isTargetAnimal && isTargetHerbivorous;
+                bool result = isTargetAnimal && isTargetHerbivorous;
+                if (result)
+                {
+                    (target as Animal).IsAlive = false;
+                }
             }
 
             // Herbivorous animals eat only plants
