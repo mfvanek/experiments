@@ -1,12 +1,27 @@
-﻿namespace WildLife.Models
+﻿using WildLife.Lifecycles;
+
+namespace WildLife.Models
 {
     public abstract class Animal
     {
-        protected Animal(bool carnivorous)
+        protected Animal(ILifecycle lifecycle, bool carnivorous, bool isMale, int age)
         {
+            this.Lifecycle = lifecycle;
             this.IsCarnivorous = carnivorous;
             this.IsAlive = true;
+            this.IsMale = isMale;
+            this.Age = age;
         }
+
+        protected ILifecycle Lifecycle { get; }
+
+        public Generation Generation { get => this.Lifecycle.GetGeneration(this.Age); }
+
+        public int Age { get; protected set; }
+
+        public bool IsMale { get; }
+
+        public bool IsFemale { get => !IsMale; }
 
         public bool IsAlive { get; protected set; }
 

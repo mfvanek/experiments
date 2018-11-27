@@ -1,10 +1,16 @@
 ﻿using System;
+using WildLife.Attacks;
+using WildLife.Lifecycles;
 
 namespace WildLife.Models
 {
-    public class Wolf : CarnivorousAnimal
+    public sealed class Wolf : CarnivorousAnimal
     {
-        public Wolf() {}
+        private static Wolf adultMale = null;
+
+        private Wolf(bool isMale, int age)
+            : base(WolfLifecycle.Instance, new SilentAttack(), isMale, age)
+        {}
 
         public string Howl()
         {
@@ -34,12 +40,18 @@ namespace WildLife.Models
             Console.WriteLine("The wolf is biting target");
         }
 
-        public override bool Attack(Animal target)
+        public static Wolf GetAdultMale()
         {
-            this.Run();
-            this.Jump();
-            this.Bite(target);
-            return this.Eat(target);
+            if (adultMale == null)
+            {
+                adultMale = new Wolf(true, WolfLifecycle.Instance.GetOldAge() - 1);
+            }
+            return adultMale;
+        }
+
+        public static Wolf GetAdultFemale()
+        {
+            return new Wolf(false, WolfLifecycle.Instance.GetOldAge() - 1);
         }
     }
 }

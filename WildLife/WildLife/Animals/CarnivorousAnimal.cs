@@ -1,4 +1,5 @@
 ﻿using WildLife.Attacks;
+using WildLife.Lifecycles;
 
 namespace WildLife.Models
 {
@@ -6,7 +7,8 @@ namespace WildLife.Models
     {
         private readonly IAttack attackType;
 
-        protected CarnivorousAnimal(IAttack attackType) : base(true)
+        protected CarnivorousAnimal(ILifecycle lifecycle, IAttack attackType, bool isMale, int age)
+            : base(lifecycle, true, isMale, age)
         {
             this.attackType = attackType;
         }
