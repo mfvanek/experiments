@@ -1,6 +1,7 @@
 ﻿using MediaFoundation;
 using MediaFoundation.Misc;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using VideoInfo.Extensions;
+using VideoInfo.Models;
 
 namespace VideoInfo
 {
@@ -145,19 +148,21 @@ namespace VideoInfo
                 hr = pProps.GetCount(out int cProps);
                 Validate(hr);
 
+                var audioInfo = new AudioInfo();
                 for (int i = 0; i < cProps; ++i)
                 {
-                    PropertyKey key = new PropertyKey();
-                    hr = pProps.GetAt(i, key); // ??? TODO check it!
+                    var key = new MediaFoundation.Misc.PropertyKey();
+                    hr = pProps.GetAt(i, key);
                     Validate(hr);
 
                     using (PropVariant pv = new PropVariant())
                     {
-                        hr = pProps.GetValue(key, pv); // ??? TODO check it!
+                        hr = pProps.GetValue(key, pv);
                         Validate(hr);
-                        DisplayProperty(key, pv);
+                        FillAudioProperty(audioInfo, key, pv);
                     }
                 }
+                MessageBox.Show("Audio = " + audioInfo);
             }
             finally
             {
@@ -177,9 +182,32 @@ namespace VideoInfo
             // MessageBox.Show(url);
         }
 
-        private void DisplayProperty(PropertyKey key, PropVariant pv)
+        private void FillAudioProperty(AudioInfo info, MediaFoundation.Misc.PropertyKey key, PropVariant pv)
         {
-            MessageBox.Show($"{key.pID} {key.fmtid} - {pv.ToString()}");
+            if (key.IsEqual(SystemProperties.System.Audio.ChannelCount))
+            {
+                info.ChannelCount = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Audio.EncodingBitrate))
+            {
+                info.EncodingBitrate = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Audio.SampleRate))
+            {
+                info.SampleRate = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Audio.Format))
+            {
+                info.Format = (string)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Audio.StreamNumber))
+            {
+                info.StreamNumber = (uint)pv;
+            }
         }
 
         private static void Validate(HResult hr)
