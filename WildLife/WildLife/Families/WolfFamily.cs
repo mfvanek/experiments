@@ -3,8 +3,12 @@ using WildLife.Models;
 
 namespace WildLife.Families
 {
-    public class WolfFamily : IAnimalFamily
+    public sealed class WolfFamily : IAnimalFamily
     {
+        private static WolfFamily instance = null;
+
+        private WolfFamily() {}
+
         public Animal GetAdultSpecimen(bool isMale)
         {
             return isMale ? Wolf.GetAdultMale() : Wolf.GetAdultFemale();
@@ -17,7 +21,19 @@ namespace WildLife.Families
 
         public Animal GetYoungSpecimen(bool isMale)
         {
-            return new Wolf();
+            return isMale ? Wolf.GetYoungMale() : Wolf.GetYoungFemale();
+        }
+
+        public static WolfFamily Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new WolfFamily();
+                }
+                return instance;
+            }
         }
     }
 }

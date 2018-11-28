@@ -2,11 +2,11 @@
 
 namespace WildLife.Lifecycles
 {
-    public sealed class WolfLifecycle : ILifecycle
+    public sealed class RabbitLifecycle : ILifecycle
     {
         private static ILifecycle instance = null;
 
-        private WolfLifecycle() {}
+        private RabbitLifecycle() {}
 
         // TODO to base class
         public Generation GetGeneration(int age)
@@ -24,17 +24,17 @@ namespace WildLife.Lifecycles
 
         public int GetMaxAge()
         {
-            return 17;
+            return 19;
         }
 
         public int GetOldAge()
         {
-            return 11;
+            return 12;
         }
 
         public int GetAdultAge()
         {
-            return 3;
+            return 4;
         }
 
         public static ILifecycle Instance
@@ -43,7 +43,7 @@ namespace WildLife.Lifecycles
             {
                 if (instance == null)
                 {
-                    instance = new WolfLifecycle();
+                    instance = new RabbitLifecycle();
                 }
                 return instance;
             }

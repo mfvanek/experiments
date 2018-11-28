@@ -40,6 +40,11 @@ namespace WildLife.Models
             Console.WriteLine("The wolf is biting target");
         }
 
+        public override string ToString()
+        {
+            return $"{Generation} " + (IsMale ? "male" : "female") + " wolf";
+        }
+
         public static Wolf GetAdultMale()
         {
             if (adultMale == null)
@@ -52,6 +57,16 @@ namespace WildLife.Models
         public static Wolf GetAdultFemale()
         {
             return new Wolf(false, WolfLifecycle.Instance.GetOldAge() - 1);
+        }
+
+        public static Wolf GetYoungMale()
+        {
+            return new Wolf(true, WolfLifecycle.Instance.GetAdultAge() - 1);
+        }
+
+        public static Wolf GetYoungFemale()
+        {
+            return new Wolf(false, WolfLifecycle.Instance.GetAdultAge() - 1);
         }
     }
 }

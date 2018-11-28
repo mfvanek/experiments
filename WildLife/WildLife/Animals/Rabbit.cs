@@ -1,9 +1,14 @@
 ﻿using System;
+using WildLife.Lifecycles;
 
 namespace WildLife.Models
 {
     public class Rabbit : HerbivorousAnimal
     {
+        private Rabbit(bool isMale, int age)
+            : base(RabbitLifecycle.Instance, isMale, age)
+        {}
+
         public string Squeal()
         {
             return "wiiiiiiii";
