@@ -1,7 +1,7 @@
 ﻿using WildLife.Attacks;
 using WildLife.Lifecycles;
 
-namespace WildLife.Models
+namespace WildLife.Animals
 {
     public abstract class CarnivorousAnimal : Animal
     {

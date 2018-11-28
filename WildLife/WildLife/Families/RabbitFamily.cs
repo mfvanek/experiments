@@ -3,11 +3,11 @@ using WildLife.Animals;
 
 namespace WildLife.Families
 {
-    public sealed class WolfFamily : IAnimalFamily
+    public sealed class RabbitFamily : IAnimalFamily
     {
         private static IAnimalFamily instance = null;
 
-        private WolfFamily() {}
+        private RabbitFamily() {}
 
         public Animal GetAdultSpecimen(bool isMale)
         {
@@ -30,7 +30,7 @@ namespace WildLife.Families
             {
                 if (instance == null)
                 {
-                    instance = new WolfFamily();
+                    instance = new RabbitFamily();
                 }
                 return instance;
             }

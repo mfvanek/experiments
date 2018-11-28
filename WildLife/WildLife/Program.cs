@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WildLife.Families;
-using WildLife.Models;
+using WildLife.Animals;
 
 namespace WildLife
 {

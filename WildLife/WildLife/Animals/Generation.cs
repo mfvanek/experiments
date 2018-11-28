@@ -1,4 +1,4 @@
-﻿namespace WildLife.Models
+﻿namespace WildLife.Animals
 {
     public enum Generation
     {

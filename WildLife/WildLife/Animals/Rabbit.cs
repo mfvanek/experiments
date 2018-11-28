@@ -1,7 +1,7 @@
 ﻿using System;
 using WildLife.Lifecycles;
 
-namespace WildLife.Models
+namespace WildLife.Animals
 {
     public class Rabbit : HerbivorousAnimal
     {
@@ -41,6 +41,21 @@ namespace WildLife.Models
         public override void Bite(Animal target)
         {
             Console.WriteLine("The rabbit doesn't bite anyone");
+        }
+
+        public static Rabbit GetYoung(bool isMale)
+        {
+            return new Rabbit(isMale, RabbitLifecycle.Instance.GetAdultAge() - 1);
+        }
+
+        public static Rabbit GetAdult(bool isMale)
+        {
+            return new Rabbit(isMale, RabbitLifecycle.Instance.GetAdultAge() + 1);
+        }
+
+        public static Rabbit GetOld(bool isMale)
+        {
+            return new Rabbit(isMale, RabbitLifecycle.Instance.GetOldAge() + 1);
         }
     }
 }

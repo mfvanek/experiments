@@ -1,4 +1,4 @@
-﻿using WildLife.Models;
+﻿using WildLife.Animals;
 
 namespace WildLife.Families
 {
