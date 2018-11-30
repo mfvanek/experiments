@@ -1,4 +1,4 @@
-﻿namespace VideoInfo.Extensions
+﻿namespace MF.MediaInfo.Extensions
 {
     public static class PropertyKeyExt
     {

@@ -1,4 +1,4 @@
-﻿namespace VideoInfo
+﻿namespace MF.MediaInfo
 {
     partial class MainForm
     {

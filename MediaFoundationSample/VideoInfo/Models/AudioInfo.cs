@@ -1,4 +1,4 @@
-﻿namespace VideoInfo.Models
+﻿namespace MF.MediaInfo.Models
 {
     public class AudioInfo
     {
@@ -13,7 +13,7 @@
         public override string ToString()
         {
             return $"Number of audio channels = {ChannelCount};\nAverage audio bit rate, in bits per second = {EncodingBitrate};\nAudio sample rate in samples per second = {SampleRate};\n" +
-                $"Number of bits per audio sample  = {SampleSize};\nUses variable bit-rate encoding = {IsVariableBitRate}.";
+                $"Number of bits per audio sample  = {SampleSize};\nUses variable bit-rate encoding = {IsVariableBitRate};\nIdentifier of the audio stream = {StreamNumber}";
         }
     }
 }

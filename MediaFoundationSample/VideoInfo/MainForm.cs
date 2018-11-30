@@ -1,5 +1,7 @@
 ﻿using MediaFoundation;
 using MediaFoundation.Misc;
+using MF.MediaInfo.Extensions;
+using MF.MediaInfo.Models;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System;
@@ -9,10 +11,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using VideoInfo.Extensions;
-using VideoInfo.Models;
 
-namespace VideoInfo
+namespace MF.MediaInfo
 {
     public partial class MainForm : Form
     {
@@ -149,6 +149,8 @@ namespace VideoInfo
                 Validate(hr);
 
                 var audioInfo = new AudioInfo();
+                var videoInfo = new VideoInfo();
+
                 for (int i = 0; i < cProps; ++i)
                 {
                     var key = new MediaFoundation.Misc.PropertyKey();
@@ -160,9 +162,10 @@ namespace VideoInfo
                         hr = pProps.GetValue(key, pv);
                         Validate(hr);
                         FillAudioProperty(audioInfo, key, pv);
+                        FillVideoProperty(videoInfo, key, pv);
                     }
                 }
-                MessageBox.Show("Audio = " + audioInfo);
+                MessageBox.Show("Audio =\n" + audioInfo + ";\nVideo =\n" + videoInfo);
             }
             finally
             {
@@ -205,6 +208,59 @@ namespace VideoInfo
             }
 
             if (key.IsEqual(SystemProperties.System.Audio.StreamNumber))
+            {
+                info.StreamNumber = (uint)pv;
+            }
+        }
+
+        private static void FillVideoProperty(VideoInfo info, MediaFoundation.Misc.PropertyKey key, PropVariant pv)
+        {
+            if (key.IsEqual(SystemProperties.System.Video.Compression))
+            {
+                info.Compression = (string)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.Director))
+            {
+                info.Director = (string)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.EncodingBitrate))
+            {
+                info.EncodingBitrate = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.FrameHeight))
+            {
+                info.FrameHeight = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.FrameWidth))
+            {
+                info.FrameWidth = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.FrameRate))
+            {
+                info.FrameRate = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.HorizontalAspectRatio))
+            {
+                info.HorizontalAspectRatio = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.VerticalAspectRatio))
+            {
+                info.VerticalAspectRatio = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.TotalBitrate))
+            {
+                info.TotalBitrate = (uint)pv;
+            }
+
+            if (key.IsEqual(SystemProperties.System.Video.StreamNumber))
             {
                 info.StreamNumber = (uint)pv;
             }
