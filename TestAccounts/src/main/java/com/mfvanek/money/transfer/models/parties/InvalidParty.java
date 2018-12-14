@@ -3,7 +3,7 @@ package com.mfvanek.money.transfer.models.parties;
 import com.mfvanek.money.transfer.enums.PartyType;
 import com.mfvanek.money.transfer.interfaces.Identifiable;
 
-class InvalidParty extends AbstractParty {
+final class InvalidParty extends AbstractParty {
 
     private InvalidParty() {
         super(Identifiable.INVALID_ID, PartyType.LEGAL_PERSON, "");
