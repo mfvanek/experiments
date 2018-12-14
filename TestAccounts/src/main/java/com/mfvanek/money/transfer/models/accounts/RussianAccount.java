@@ -1,7 +1,8 @@
 package com.mfvanek.money.transfer.models.accounts;
 
+import com.mfvanek.money.transfer.enums.Chapter;
+import com.mfvanek.money.transfer.interfaces.Party;
 import com.mfvanek.money.transfer.models.Currency;
-import com.mfvanek.money.transfer.models.parties.Party;
 
 import java.util.Objects;
 

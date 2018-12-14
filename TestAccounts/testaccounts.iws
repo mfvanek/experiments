@@ -2,14 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80a0defe-254f-4531-a60f-6b9cbe7b5375" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Chapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/RussianAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/AccountsRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/PartyRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/accounts/RussianAccountTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Party.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/PartyRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/AbstractParty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/InvalidParty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/RussianLegalPerson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/RussianPrivatePerson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/parties/InvalidPartyTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/repositories/PartyRepositoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/Currency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Identifiable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Identifiable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Chapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/enums/Chapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/RussianAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/RussianAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/LegalPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/LegalPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/Party.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PartyType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/enums/PartyType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PrivatePerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PrivatePerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/AccountsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/AccountsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/PartyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/DefaultPartyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/accounts/RussianAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/accounts/RussianAccountTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testaccounts.iml" beforeDir="false" afterPath="$PROJECT_DIR$/testaccounts.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testaccounts.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/testaccounts.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testaccounts.iws" beforeDir="false" afterPath="$PROJECT_DIR$/testaccounts.iws" afterDir="false" />
@@ -47,62 +59,35 @@
     <session id="1671978108">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="27" />
-          <entry key="XML" value="5" />
+          <entry key="JAVA" value="77" />
+          <entry key="XML" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1861" />
-          <entry key="XML" value="42" />
+          <entry key="JAVA" value="3864" />
+          <entry key="XML" value="44" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Account.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="19" column="39" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/RussianAccount.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/accounts/RussianAccountTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="22" lean-forward="true" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -119,22 +104,32 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Identifiable.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/Party.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/LegalPerson.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/PrivatePerson.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/Account.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PartyType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/LegalPerson.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PrivatePerson.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/Party.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/PartyRepository.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Account.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/RussianAccount.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/Currency.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Chapter.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/RussianPrivatePerson.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/RussianLegalPerson.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/AccountsRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Identifiable.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/PartyRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/Party.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/InvalidParty.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/LegalPerson.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PrivatePerson.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/PartyRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/repositories/PartyRepositoryTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Party.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/AbstractParty.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/RussianAccount.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Account.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/accounts/RussianAccountTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/parties/InvalidPartyTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/DefaultPartyRepository.java" />
       </list>
     </option>
   </component>
@@ -197,7 +192,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="transfer" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="interfaces" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="testaccounts" type="b2602c69:ProjectViewProjectNode" />
@@ -207,7 +202,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="transfer" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="accounts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="testaccounts" type="b2602c69:ProjectViewProjectNode" />
@@ -241,6 +235,23 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="testaccounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TestAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="transfer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="testaccounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TestAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="transfer" type="462c0819:PsiDirectoryNode" />
+              <item name="repositories" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -250,17 +261,20 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544779542921" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544789059481" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.mfvanek.money.transfer.repositories" />
+      <recent name="com.mfvanek.money.transfer.models.parties" />
       <recent name="com.mfvanek.money.transfer.models.accounts" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -279,47 +293,89 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RussianAccountTest.getId">
-    <configuration name="RussianAccountTest.getChapter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.All in testaccounts">
+    <configuration name="All in testaccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="testaccounts" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InvalidPartyTest.invalidParty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="testaccounts" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.mfvanek.money.transfer.models.accounts.*" />
+          <option name="PATTERN" value="com.mfvanek.money.transfer.enums.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.mfvanek.money.transfer.models.accounts" />
-      <option name="MAIN_CLASS_NAME" value="com.mfvanek.money.transfer.models.accounts.RussianAccountTest" />
-      <option name="METHOD_NAME" value="getChapter" />
+      <option name="PACKAGE_NAME" value="com.mfvanek.money.transfer.models.parties" />
+      <option name="MAIN_CLASS_NAME" value="com.mfvanek.money.transfer.models.parties.InvalidPartyTest" />
+      <option name="METHOD_NAME" value="invalidParty" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RussianAccountTest.getId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PartyRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="testaccounts" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.mfvanek.money.transfer.models.accounts.*" />
+          <option name="PATTERN" value="com.mfvanek.money.transfer.repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mfvanek.money.transfer.repositories" />
+      <option name="MAIN_CLASS_NAME" value="com.mfvanek.money.transfer.repositories.PartyRepositoryTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RussianAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="testaccounts" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mfvanek.money.transfer.enums.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.mfvanek.money.transfer.models.accounts" />
       <option name="MAIN_CLASS_NAME" value="com.mfvanek.money.transfer.models.accounts.RussianAccountTest" />
-      <option name="METHOD_NAME" value="getId" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RussianAccountTest.getBalance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="testaccounts" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mfvanek.money.transfer.enums.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mfvanek.money.transfer.models.accounts" />
+      <option name="MAIN_CLASS_NAME" value="com.mfvanek.money.transfer.models.accounts.RussianAccountTest" />
+      <option name="METHOD_NAME" value="getBalance" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.RussianAccountTest.getChapter" />
-      <item itemvalue="JUnit.RussianAccountTest.getId" />
+      <item itemvalue="JUnit.RussianAccountTest.getBalance" />
+      <item itemvalue="JUnit.RussianAccountTest" />
+      <item itemvalue="JUnit.All in testaccounts" />
+      <item itemvalue="JUnit.InvalidPartyTest.invalidParty" />
+      <item itemvalue="JUnit.PartyRepositoryTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RussianAccountTest.getId" />
-        <item itemvalue="JUnit.RussianAccountTest.getChapter" />
+        <item itemvalue="JUnit.All in testaccounts" />
+        <item itemvalue="JUnit.PartyRepositoryTest" />
+        <item itemvalue="JUnit.InvalidPartyTest.invalidParty" />
+        <item itemvalue="JUnit.RussianAccountTest" />
+        <item itemvalue="JUnit.RussianAccountTest.getBalance" />
       </list>
     </recent_temporary>
   </component>
@@ -337,53 +393,53 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 11h 41m 51s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="RussianAccountTest_getId - 2018.12.14 at 12h 25m 36s.xml">
+      <configuration name="RussianAccountTest.getId" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 11h 41m 59s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="RussianAccountTest_getCurrency - 2018.12.14 at 12h 53m 27s.xml">
+      <configuration name="RussianAccountTest.getCurrency" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 11h 42m 16s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="RussianAccountTest_getBalance - 2018.12.14 at 12h 55m 05s.xml">
+      <configuration name="RussianAccountTest.getBalance" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 11h 48m 40s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="RussianAccountTest - 2018.12.14 at 12h 56m 06s.xml">
+      <configuration name="RussianAccountTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 11h 58m 32s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="All_in_testaccounts - 2018.12.14 at 14h 07m 44s.xml">
+      <configuration name="All in testaccounts" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 12h 00m 09s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="InvalidPartyTest_invalidParty - 2018.12.14 at 14h 36m 39s.xml">
+      <configuration name="InvalidPartyTest.invalidParty" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 12h 00m 56s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="All_in_testaccounts - 2018.12.14 at 14h 36m 49s.xml">
+      <configuration name="All in testaccounts" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 12h 19m 08s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="All_in_testaccounts - 2018.12.14 at 14h 44m 30s.xml">
+      <configuration name="All in testaccounts" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 12h 20m 21s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="All_in_testaccounts - 2018.12.14 at 15h 03m 34s.xml">
+      <configuration name="All in testaccounts" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RussianAccountTest_getChapter - 2018.12.14 at 12h 23m 01s.xml">
-      <configuration name="RussianAccountTest.getChapter" configurationId="JUnit" />
+    <history-entry file="All_in_testaccounts - 2018.12.14 at 15h 04m 24s.xml">
+      <configuration name="All in testaccounts" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection Results" weight="0.32936078" />
       <window_info anchor="bottom" id="Messages" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3997833" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -404,52 +460,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Identifiable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/LegalPerson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PartyType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PrivatePerson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/AccountsRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_192/src.zip!/java/util/concurrent/atomic/AtomicLong.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="81" column="20" selection-start-line="81" selection-start-column="12" selection-end-line="81" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -464,13 +478,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="227" selection-start-line="227" selection-end-line="227" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="19" column="39" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -495,38 +502,157 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/RussianAccount.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1-sources.jar!/org/apache/commons/lang3/builder/HashCodeBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="542" column="11" selection-start-line="542" selection-start-column="11" selection-end-line="542" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_192/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="147" column="30" lean-forward="true" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1-sources.jar!/org/apache/commons/lang3/builder/EqualsBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="227" column="11" selection-start-line="227" selection-start-column="11" selection-end-line="227" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/RussianPrivatePerson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/RussianLegalPerson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/enums/Chapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/PartyRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/enums/PartyType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+        <state relative-caret-position="34">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/Party.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/InvalidParty.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="238">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Chapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/PrivatePerson.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="187">
+          <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/LegalPerson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Identifiable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/PartyRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/interfaces/Party.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/parties/AbstractParty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" column="49" lean-forward="true" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/RussianAccount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/repositories/PartyRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="76" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/accounts/RussianAccountTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="22" lean-forward="true" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+        <state relative-caret-position="221">
+          <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/mfvanek/money/transfer/models/parties/InvalidPartyTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/DefaultPartyRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/repositories/AccountsRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mfvanek/money/transfer/models/accounts/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
         </state>
       </provider>
     </entry>

@@ -1,4 +1,4 @@
-package com.mfvanek.money.transfer.models.parties;
+package com.mfvanek.money.transfer.enums;
 
 public enum PartyType {
 

@@ -1,4 +1,4 @@
-package com.mfvanek.money.transfer.models.accounts;
+package com.mfvanek.money.transfer.enums;
 
 import java.util.Objects;
 
