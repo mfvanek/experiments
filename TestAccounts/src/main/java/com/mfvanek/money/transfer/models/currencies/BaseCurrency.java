@@ -1,8 +1,7 @@
 package com.mfvanek.money.transfer.models.currencies;
 
-import com.mfvanek.money.transfer.interfaces.Validatable;
+import com.mfvanek.money.transfer.interfaces.Currency;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Objects;
@@ -11,21 +10,25 @@ import java.util.concurrent.ConcurrentMap;
 
 @ToString
 @EqualsAndHashCode
-public class Currency implements Validatable {
+public class BaseCurrency implements Currency {
 
     private static final int ISO_CODE_LENGTH = 3;
     private static final ConcurrentMap<String, Currency> CURRENCIES = new ConcurrentHashMap<>();
 
-    @Getter
     private final String isoCode;
 
-    Currency(String isoCode) {
+    BaseCurrency(String isoCode) {
         this.isoCode = isoCode;
     }
 
     @Override
     public boolean isValid() {
         return isoCode.length() == ISO_CODE_LENGTH;
+    }
+
+    @Override
+    public String getISOCode() {
+        return isoCode;
     }
 
     public static Currency valueOf(String isoCode) {
@@ -35,7 +38,7 @@ public class Currency implements Validatable {
         final String code = isoCode.toUpperCase();
         Currency currency = CURRENCIES.get(code);
         if (currency == null) {
-            currency = CURRENCIES.computeIfAbsent(code, Currency::new);
+            currency = CURRENCIES.computeIfAbsent(code, BaseCurrency::new);
         }
         return currency;
     }

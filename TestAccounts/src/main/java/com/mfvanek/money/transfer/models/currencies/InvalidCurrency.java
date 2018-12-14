@@ -1,8 +1,9 @@
 package com.mfvanek.money.transfer.models.currencies;
 
+import com.mfvanek.money.transfer.interfaces.Currency;
 import com.mfvanek.money.transfer.interfaces.Identifiable;
 
-final class InvalidCurrency extends Currency {
+final class InvalidCurrency extends BaseCurrency {
 
     private InvalidCurrency() {
         super("");

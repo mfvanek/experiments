@@ -1,8 +1,8 @@
 package com.mfvanek.money.transfer.models.accounts;
 
 import com.mfvanek.money.transfer.interfaces.Account;
+import com.mfvanek.money.transfer.interfaces.Currency;
 import com.mfvanek.money.transfer.interfaces.Party;
-import com.mfvanek.money.transfer.models.currencies.Currency;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -61,5 +61,9 @@ public abstract class AbstractAccount implements Account {
 
     public static Account getInvalid() {
         return InvalidAccount.getInstance();
+    }
+
+    public static Account makeAccount(Long id, Currency currency, String number, Party holder) {
+        return RussianAccount.makeBalance(id, currency, number, holder);
     }
 }

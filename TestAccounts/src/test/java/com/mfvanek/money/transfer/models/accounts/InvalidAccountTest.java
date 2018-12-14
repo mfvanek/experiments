@@ -1,7 +1,7 @@
 package com.mfvanek.money.transfer.models.accounts;
 
 import com.mfvanek.money.transfer.interfaces.Account;
-import com.mfvanek.money.transfer.models.currencies.Currency;
+import com.mfvanek.money.transfer.models.currencies.BaseCurrency;
 import com.mfvanek.money.transfer.models.parties.AbstractParty;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ class InvalidAccountTest {
 
         assertEquals("", a.getNumber());
         assertEquals(BigDecimal.valueOf(0), a.getBalance());
-        assertEquals(Currency.getInvalid(), a.getCurrency());
+        assertEquals(BaseCurrency.getInvalid(), a.getCurrency());
         assertEquals(AbstractParty.getInvalid(), a.getHolder());
     }
 }

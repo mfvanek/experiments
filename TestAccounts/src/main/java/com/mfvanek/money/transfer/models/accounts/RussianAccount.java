@@ -1,8 +1,9 @@
 package com.mfvanek.money.transfer.models.accounts;
 
 import com.mfvanek.money.transfer.enums.Chapter;
+import com.mfvanek.money.transfer.interfaces.Currency;
 import com.mfvanek.money.transfer.interfaces.Party;
-import com.mfvanek.money.transfer.models.currencies.Currency;
+import com.mfvanek.money.transfer.models.currencies.BaseCurrency;
 
 import java.util.Objects;
 
@@ -27,7 +28,11 @@ public final class RussianAccount extends AbstractAccount {
         }
     }
 
-    public static RussianAccount newRUB(Long id, String number, Party holder) {
-        return new RussianAccount(id, Chapter.BALANCE, Currency.valueOf("RUB"), number, holder);
+    public static RussianAccount makeBalance(Long id, Currency currency, String number, Party holder) {
+        return new RussianAccount(id, Chapter.BALANCE, currency, number, holder);
+    }
+
+    public static RussianAccount makeRouble(Long id, String number, Party holder) {
+        return makeBalance(id, BaseCurrency.valueOf("RUB"), number, holder);
     }
 }

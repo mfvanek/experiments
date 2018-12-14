@@ -2,13 +2,13 @@ package com.mfvanek.money.transfer.models.accounts;
 
 import com.mfvanek.money.transfer.interfaces.Account;
 import com.mfvanek.money.transfer.interfaces.Identifiable;
-import com.mfvanek.money.transfer.models.currencies.Currency;
+import com.mfvanek.money.transfer.models.currencies.BaseCurrency;
 import com.mfvanek.money.transfer.models.parties.AbstractParty;
 
 final class InvalidAccount extends AbstractAccount {
 
     private InvalidAccount() {
-        super(Identifiable.INVALID_ID, Currency.getInvalid(), "", AbstractParty.getInvalid());
+        super(Identifiable.INVALID_ID, BaseCurrency.getInvalid(), "", AbstractParty.getInvalid());
     }
 
     @Override
