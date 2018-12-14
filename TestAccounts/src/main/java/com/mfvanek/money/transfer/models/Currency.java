@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -21,19 +22,20 @@ public final class Currency {
     }
 
     public static Currency valueOf(String isoCode) {
-        if (isoCode == null) {
-            throw new IllegalArgumentException("Currency code cannot be null");
-        }
-
-        if (isoCode.length() != 3) {
-            throw new IllegalArgumentException("Currency code have to have length equals to 3");
-        }
+        Objects.requireNonNull(isoCode, "Currency code cannot be null");
+        validateCode(isoCode);
 
         final String code = isoCode.toUpperCase();
         Currency currency = CURRENCIES.get(code);
         if (currency == null) {
-            currency = CURRENCIES.putIfAbsent(code, new Currency(code));
+            currency = CURRENCIES.computeIfAbsent(code, Currency::new);
         }
         return currency;
+    }
+
+    private static void validateCode(String isoCode) {
+        if (isoCode.length() != 3) {
+            throw new IllegalArgumentException("Currency code have to have length equals to 3");
+        }
     }
 }
