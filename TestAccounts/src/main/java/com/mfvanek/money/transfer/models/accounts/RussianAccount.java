@@ -11,8 +11,9 @@ public final class RussianAccount extends AbstractAccount {
 
     private final Chapter chapter;
 
-    private RussianAccount(Long id, Chapter chapter, Currency currency, String number, Party holder) {
-        super(id, currency, number, holder);
+    private RussianAccount(Long id, Chapter chapter, Currency currency,
+                           String number, Party holder, boolean active) {
+        super(id, currency, number, holder, active);
         Objects.requireNonNull(chapter, "Chapter cannot be null");
         validateNumber(number);
         this.chapter = chapter;
@@ -28,11 +29,19 @@ public final class RussianAccount extends AbstractAccount {
         }
     }
 
-    public static RussianAccount makeBalance(Long id, Currency currency, String number, Party holder) {
-        return new RussianAccount(id, Chapter.BALANCE, currency, number, holder);
+    public static RussianAccount makeActiveBalance(Long id, Currency currency, String number, Party holder) {
+        return new RussianAccount(id, Chapter.BALANCE, currency, number, holder, true);
     }
 
-    public static RussianAccount makeRouble(Long id, String number, Party holder) {
-        return makeBalance(id, BaseCurrency.valueOf("RUB"), number, holder);
+    public static RussianAccount makePassiveBalance(Long id, Currency currency, String number, Party holder) {
+        return new RussianAccount(id, Chapter.BALANCE, currency, number, holder, false);
+    }
+
+    public static RussianAccount makeActiveRouble(Long id, String number, Party holder) {
+        return makeActiveBalance(id, BaseCurrency.getDefault(), number, holder);
+    }
+
+    public static RussianAccount makePassiveRouble(Long id, String number, Party holder) {
+        return makePassiveBalance(id, BaseCurrency.getDefault(), number, holder);
     }
 }

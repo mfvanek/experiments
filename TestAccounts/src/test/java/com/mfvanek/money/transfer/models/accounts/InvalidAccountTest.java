@@ -30,5 +30,6 @@ class InvalidAccountTest {
         assertEquals(BigDecimal.valueOf(0), a.getBalance());
         assertEquals(BaseCurrency.getInvalid(), a.getCurrency());
         assertEquals(AbstractParty.getInvalid(), a.getHolder());
+        assertFalse(a.isActive());
     }
 }

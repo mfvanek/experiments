@@ -13,9 +13,11 @@ public abstract class AbstractAccount implements Account {
     private final Currency currency;
     private final String number;
     private final Party holder;
+    private final boolean active;
     private BigDecimal balance;
 
-    private AbstractAccount(Long id, Currency currency, String number, Party holder, BigDecimal balance) {
+    private AbstractAccount(Long id, Currency currency, String number,
+                            Party holder, boolean active, BigDecimal balance) {
         Objects.requireNonNull(id, "Id cannot be null");
         Objects.requireNonNull(currency, "Currency cannot be null");
         Objects.requireNonNull(number, "Number cannot be null");
@@ -26,11 +28,12 @@ public abstract class AbstractAccount implements Account {
         this.currency = currency;
         this.number = number;
         this.holder = holder;
+        this.active = active;
         this.balance = balance;
     }
 
-    AbstractAccount(Long id, Currency currency, String number, Party holder) {
-        this(id, currency, number, holder, BigDecimal.ZERO);
+    AbstractAccount(Long id, Currency currency, String number, Party holder, boolean active) {
+        this(id, currency, number, holder, active, BigDecimal.ZERO);
     }
 
     @Override
@@ -59,11 +62,28 @@ public abstract class AbstractAccount implements Account {
         return holder;
     }
 
+    @Override
+    public boolean isActive() {
+        return active;
+    }
+
     public static Account getInvalid() {
         return InvalidAccount.getInstance();
     }
 
-    public static Account makeAccount(Long id, Currency currency, String number, Party holder) {
-        return RussianAccount.makeBalance(id, currency, number, holder);
+    public static Account makeActiveAccount(Long id, Currency currency, String number, Party holder) {
+        return RussianAccount.makeActiveBalance(id, currency, number, holder);
+    }
+
+    public static Account makePassiveAccount(Long id, Currency currency, String number, Party holder) {
+        return RussianAccount.makeActiveBalance(id, currency, number, holder);
+    }
+
+    public static Account makeActiveAccount(Long id, String number, Party holder) {
+        return RussianAccount.makeActiveRouble(id, number, holder);
+    }
+
+    public static Account makePassiveAccount(Long id, String number, Party holder) {
+        return RussianAccount.makeActiveRouble(id, number, holder);
     }
 }

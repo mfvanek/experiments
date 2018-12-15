@@ -8,7 +8,7 @@ import com.mfvanek.money.transfer.models.parties.AbstractParty;
 final class InvalidAccount extends AbstractAccount {
 
     private InvalidAccount() {
-        super(Identifiable.INVALID_ID, BaseCurrency.getInvalid(), "", AbstractParty.getInvalid());
+        super(Identifiable.INVALID_ID, BaseCurrency.getInvalid(), "", AbstractParty.getInvalid(), false);
     }
 
     @Override

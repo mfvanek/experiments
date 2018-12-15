@@ -11,4 +11,6 @@ public interface Account extends Identifiable {
     BigDecimal getBalance();
 
     Party getHolder();
+
+    boolean isActive();
 }

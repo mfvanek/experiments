@@ -52,4 +52,8 @@ public class BaseCurrency implements Currency {
     public static Currency getInvalid() {
         return InvalidCurrency.getInstance();
     }
+
+    public static Currency getDefault() {
+        return valueOf("RUB");
+    }
 }

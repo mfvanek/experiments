@@ -5,6 +5,7 @@ import com.mfvanek.money.transfer.interfaces.AccountsRepository;
 import com.mfvanek.money.transfer.interfaces.Currency;
 import com.mfvanek.money.transfer.interfaces.PartyRepository;
 import com.mfvanek.money.transfer.models.accounts.AbstractAccount;
+import com.mfvanek.money.transfer.models.currencies.BaseCurrency;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -15,9 +16,12 @@ public class DefaultAccountsRepository implements AccountsRepository {
     private final AtomicLong counter = new AtomicLong(0L);
     private final ConcurrentMap<Long, Account> ACCOUNTS = new ConcurrentHashMap<>();
     private final PartyRepository partyRepository;
+    private final Long ourBankAccountId;
 
     public DefaultAccountsRepository(PartyRepository partyRepository) {
         this.partyRepository = partyRepository;
+        final Account ourBankAccount = addOurBankAccount("20202810100000010001");
+        this.ourBankAccountId = ourBankAccount.getId();
     }
 
     @Override
@@ -31,10 +35,22 @@ public class DefaultAccountsRepository implements AccountsRepository {
     }
 
     @Override
+    public Account addOurBankAccount(String number) {
+        return addOurBankAccount(BaseCurrency.getDefault(), number);
+    }
+
+    @Override
     public Account addOurBankAccount(Currency currency, String number) {
-        final Account account = AbstractAccount.makeAccount(counter.incrementAndGet(), currency, number, partyRepository.getOurBank());
+        // TODO Add unique index for account number + currency
+        final Account account = AbstractAccount.makeActiveAccount(counter.incrementAndGet(), currency, number, partyRepository.getOurBank());
         ACCOUNTS.putIfAbsent(account.getId(), account);
         return account;
+    }
+
+    @Override
+    public Account getOurBankMainAccount() {
+        // by design
+        return getById(ourBankAccountId);
     }
 
     @Override
