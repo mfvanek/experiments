@@ -36,4 +36,9 @@ public class DefaultAccountsRepository implements AccountsRepository {
         ACCOUNTS.putIfAbsent(account.getId(), account);
         return account;
     }
+
+    @Override
+    public int size() {
+        return ACCOUNTS.size();
+    }
 }

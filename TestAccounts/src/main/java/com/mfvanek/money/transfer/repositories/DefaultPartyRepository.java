@@ -48,4 +48,9 @@ public class DefaultPartyRepository implements PartyRepository {
     public Party getInvalid() {
         return AbstractParty.getInvalid();
     }
+
+    @Override
+    public int size() {
+        return PARTIES.size();
+    }
 }
