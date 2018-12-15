@@ -3,6 +3,7 @@ package com.mfvanek.money.transfer.repositories;
 import com.mfvanek.money.transfer.interfaces.Account;
 import com.mfvanek.money.transfer.interfaces.AccountsRepository;
 import com.mfvanek.money.transfer.interfaces.Currency;
+import com.mfvanek.money.transfer.interfaces.Party;
 import com.mfvanek.money.transfer.interfaces.PartyRepository;
 import com.mfvanek.money.transfer.models.accounts.AbstractAccount;
 import com.mfvanek.money.transfer.models.currencies.BaseCurrency;
@@ -51,6 +52,18 @@ public class DefaultAccountsRepository implements AccountsRepository {
     public Account getOurBankMainAccount() {
         // by design
         return getById(ourBankAccountId);
+    }
+
+    @Override
+    public Account addPassiveAccount(Currency currency, String number, Party holder) {
+        final Account account = AbstractAccount.makePassiveAccount(counter.incrementAndGet(), currency, number, holder);
+        ACCOUNTS.putIfAbsent(account.getId(), account);
+        return account;
+    }
+
+    @Override
+    public Account addPassiveAccount(String number, Party holder) {
+        return addPassiveAccount(BaseCurrency.getDefault(), number, holder);
     }
 
     @Override

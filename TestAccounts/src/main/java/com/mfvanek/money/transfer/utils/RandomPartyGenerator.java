@@ -42,7 +42,7 @@ public class RandomPartyGenerator {
         }
         final long timeEnd = System.currentTimeMillis();
         System.out.println(String.format("Generation completed. Time elapsed = %d (ms)", timeEnd - timeStart));
-        return ids;
+        return Collections.unmodifiableList(ids);
     }
 
     private void generateParty() {

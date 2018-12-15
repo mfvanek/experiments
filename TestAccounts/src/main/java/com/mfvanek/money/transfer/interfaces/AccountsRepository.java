@@ -7,4 +7,8 @@ public interface AccountsRepository extends Repository<Account> {
     Account addOurBankAccount(String number);
 
     Account getOurBankMainAccount();
+
+    Account addPassiveAccount(Currency currency, String number, Party holder);
+
+    Account addPassiveAccount(String number, Party holder);
 }
