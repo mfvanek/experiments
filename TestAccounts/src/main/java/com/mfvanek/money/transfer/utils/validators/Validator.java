@@ -6,6 +6,12 @@ import java.math.BigDecimal;
 
 public class Validator {
 
+    public static void validateAmount(Account account) {
+        if (account.getBalance().compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Amount cannot be negative for " + account);
+        }
+    }
+
     public static void validateAmount(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Amount cannot be negative");

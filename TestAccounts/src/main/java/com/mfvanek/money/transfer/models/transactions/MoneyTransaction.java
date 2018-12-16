@@ -106,6 +106,7 @@ public class MoneyTransaction implements Transaction {
                             if (debit.debit(amount)) {
                                 if (credit.credit(amount)) {
                                     state = TransactionState.COMPLETED;
+                                    logger.trace("Transaction {} completed", id);
                                     return true;
                                 }
                             }

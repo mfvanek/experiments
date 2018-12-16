@@ -27,8 +27,8 @@ public abstract class AbstractAccount implements Account {
     private BigDecimal balance;
     private final ReadWriteLock rwLock;
 
-    private AbstractAccount(Long id, Currency currency, String number,
-                            Party holder, boolean active, BigDecimal balance) {
+    AbstractAccount(Long id, Currency currency, String number,
+                    Party holder, boolean active, BigDecimal balance) {
         Objects.requireNonNull(id, "Id cannot be null");
         Objects.requireNonNull(currency, "Currency cannot be null");
         Objects.requireNonNull(number, "Number cannot be null");
@@ -135,6 +135,10 @@ public abstract class AbstractAccount implements Account {
 
     public static Account getInvalid() {
         return InvalidAccount.getInstance();
+    }
+
+    public static Account makeActiveAccount(Long id, Currency currency, String number, Party holder, BigDecimal balance) {
+        return RussianAccount.makeActiveBalance(id, currency, number, holder, balance);
     }
 
     public static Account makeActiveAccount(Long id, Currency currency, String number, Party holder) {

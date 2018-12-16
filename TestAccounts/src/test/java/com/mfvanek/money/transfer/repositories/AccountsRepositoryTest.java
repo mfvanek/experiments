@@ -1,5 +1,6 @@
 package com.mfvanek.money.transfer.repositories;
 
+import com.mfvanek.money.transfer.interfaces.Account;
 import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
 import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,12 @@ class AccountsRepositoryTest {
 
     @Test
     void getOurBankMainAccount() {
+        final AccountsRepository repository = make();
+        final Account a = repository.getOurBankMainAccount();
+        assertNotNull(a);
+        assertTrue(a.isValid());
+        assertTrue(a.isActive());
+        assertEquals(repository.getInitialBalance(), a.getBalance());
     }
 
     @Test

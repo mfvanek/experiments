@@ -78,10 +78,11 @@ public class RandomTransactionGenerator {
         final Account debit = accountsRepository.getOurBankMainAccount();
         final Account credit = accountsRepository.getById(creditAccountId);
         if (credit.isValid()) {
-            final BigDecimal amount = generateAmount(50_000, 100_000);
+            final BigDecimal amount = generateAmount(500_000, 1000_000);
             logger.trace("Generated amount = {}", amount);
             final Transaction transaction = context.getTransactionRepository().add(debit, credit, amount);
             ids.add(transaction.getId());
+            transaction.run();
         }
     }
 

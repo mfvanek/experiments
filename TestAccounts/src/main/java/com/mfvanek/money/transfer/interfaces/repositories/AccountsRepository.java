@@ -19,4 +19,6 @@ public interface AccountsRepository extends Repository<Account> {
     Account addPassiveAccount(String number, Party holder);
 
     BigDecimal getInitialBalance();
+
+    void validateBalance();
 }
