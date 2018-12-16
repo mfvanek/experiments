@@ -11,20 +11,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PartyRepositoryTest {
 
-    private final PartyRepository repository = new DefaultPartyRepository();
-
     @Test
     void addLegalPerson() {
+        final PartyRepository repository = make();
         // TODO
     }
 
     @Test
     void addPrivatePerson() {
+        final PartyRepository repository = make();
         // TODO
     }
 
     @Test
     void getById() {
+        final PartyRepository repository = make();
         Party pt = repository.getById(1L);
         assertNotNull(pt);
         assertTrue(pt.isValid());
@@ -37,6 +38,7 @@ class PartyRepositoryTest {
 
     @Test
     void getOurBank() {
+        final PartyRepository repository = make();
         final Party pt = repository.getOurBank();
         assertNotNull(pt);
         assertTrue(pt.isValid());
@@ -44,5 +46,9 @@ class PartyRepositoryTest {
         assertEquals(Long.valueOf(1), pt.getId());
         assertEquals("7703408188", pt.getTaxIdentificationNumber());
         assertEquals("Revolut LLC", pt.getName());
+    }
+
+    private PartyRepository make() {
+        return new DefaultPartyRepository();
     }
 }

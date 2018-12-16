@@ -8,26 +8,31 @@ import com.mfvanek.money.transfer.interfaces.PartyRepository;
 import com.mfvanek.money.transfer.models.accounts.AbstractAccount;
 import com.mfvanek.money.transfer.models.currencies.BaseCurrency;
 
+import java.math.BigDecimal;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class DefaultAccountsRepository implements AccountsRepository {
 
-    private final AtomicLong counter = new AtomicLong(0L);
-    private final ConcurrentMap<Long, Account> ACCOUNTS = new ConcurrentHashMap<>();
+    private static final BigDecimal INITIAL_BALANCE = BigDecimal.valueOf(100_000_000.00d);
+
+    private final AtomicLong counter;
+    private final ConcurrentMap<Long, Account> accounts;
     private final PartyRepository partyRepository;
     private final Long ourBankAccountId;
 
     public DefaultAccountsRepository(PartyRepository partyRepository) {
         this.partyRepository = partyRepository;
-        final Account ourBankAccount = addOurBankAccount("20202810100000010001");
+        this.counter = new AtomicLong(0L);
+        this.accounts = new ConcurrentHashMap<>();
+        final Account ourBankAccount = addOurBankAccount("20202810100000010001", INITIAL_BALANCE);
         this.ourBankAccountId = ourBankAccount.getId();
     }
 
     @Override
     public Account getById(Long id) {
-        return ACCOUNTS.getOrDefault(id, getInvalid());
+        return accounts.getOrDefault(id, getInvalid());
     }
 
     @Override
@@ -36,16 +41,21 @@ public class DefaultAccountsRepository implements AccountsRepository {
     }
 
     @Override
-    public Account addOurBankAccount(String number) {
-        return addOurBankAccount(BaseCurrency.getDefault(), number);
+    public Account addOurBankAccount(String number, BigDecimal balance) {
+        return addOurBankAccount(BaseCurrency.getDefault(), number, balance);
     }
 
     @Override
-    public Account addOurBankAccount(Currency currency, String number) {
+    public Account addOurBankAccount(Currency currency, String number, BigDecimal balance) {
         // TODO Add unique index for account number + currency
         final Account account = AbstractAccount.makeActiveAccount(counter.incrementAndGet(), currency, number, partyRepository.getOurBank());
-        ACCOUNTS.putIfAbsent(account.getId(), account);
+        accounts.putIfAbsent(account.getId(), account);
         return account;
+    }
+
+    @Override
+    public BigDecimal getInitialBalance() {
+        return INITIAL_BALANCE;
     }
 
     @Override
@@ -57,7 +67,7 @@ public class DefaultAccountsRepository implements AccountsRepository {
     @Override
     public Account addPassiveAccount(Currency currency, String number, Party holder) {
         final Account account = AbstractAccount.makePassiveAccount(counter.incrementAndGet(), currency, number, holder);
-        ACCOUNTS.putIfAbsent(account.getId(), account);
+        accounts.putIfAbsent(account.getId(), account);
         return account;
     }
 
@@ -68,6 +78,6 @@ public class DefaultAccountsRepository implements AccountsRepository {
 
     @Override
     public int size() {
-        return ACCOUNTS.size();
+        return accounts.size();
     }
 }

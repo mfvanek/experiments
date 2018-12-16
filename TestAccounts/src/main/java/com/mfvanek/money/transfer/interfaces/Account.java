@@ -10,6 +10,10 @@ public interface Account extends Identifiable {
 
     BigDecimal getBalance();
 
+    boolean debit(BigDecimal amount);
+
+    boolean credit(BigDecimal amount);
+
     Party getHolder();
 
     boolean isActive();

@@ -20,7 +20,7 @@ class RussianAccountTest {
 
     @Test
     void getChapter() {
-        RussianAccount a = RussianAccount.makeActiveRouble(1L, "20202810100000000001", repository.getOurBank());
+        RussianAccount a = makeAccount();
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -29,7 +29,7 @@ class RussianAccountTest {
 
     @Test
     void getId() {
-        Account a = RussianAccount.makeActiveRouble(11L, "20202810100000000001", repository.getOurBank());
+        Account a = makeAccount(11L);
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -38,7 +38,7 @@ class RussianAccountTest {
 
     @Test
     void getNumber() {
-        Account a = RussianAccount.makeActiveRouble(1L, "30102810100000000001", repository.getOurBank());
+        Account a = makeAccount();
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -47,7 +47,7 @@ class RussianAccountTest {
 
     @Test
     void getCurrency() {
-        Account a = RussianAccount.makeActiveRouble(1L, "30102810100000000001", repository.getOurBank());
+        Account a = makeAccount();
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -62,7 +62,7 @@ class RussianAccountTest {
 
     @Test
     void getBalance() {
-        Account a = RussianAccount.makeActiveRouble(1L, "30102810100000000001", repository.getOurBank());
+        Account a = makeAccount();
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -71,10 +71,28 @@ class RussianAccountTest {
 
     @Test
     void getHolder() {
-        Account a = RussianAccount.makeActiveRouble(1L, "30102810100000000001", repository.getOurBank());
+        Account a = makeAccount();
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
         assertEquals(repository.getOurBank(), a.getHolder());
+    }
+
+    @Test
+    void debitAndCredit() {
+        Account a = makeAccount();
+        assertFalse(a.debit(BigDecimal.TEN));
+        assertTrue(a.credit(BigDecimal.TEN));
+        assertEquals(BigDecimal.TEN, a.getBalance());
+        assertTrue(a.debit(BigDecimal.ONE));
+        assertEquals(BigDecimal.valueOf(9), a.getBalance());
+    }
+
+    private RussianAccount makeAccount() {
+        return makeAccount(1L);
+    }
+
+    private RussianAccount makeAccount(Long id) {
+        return RussianAccount.makeActiveRouble(id, "30102810100000000001", repository.getOurBank());
     }
 }
