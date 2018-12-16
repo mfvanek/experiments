@@ -1,4 +1,6 @@
-package com.mfvanek.money.transfer.interfaces;
+package com.mfvanek.money.transfer.interfaces.repositories;
+
+import com.mfvanek.money.transfer.interfaces.Party;
 
 public interface PartyRepository extends Repository<Party> {
 

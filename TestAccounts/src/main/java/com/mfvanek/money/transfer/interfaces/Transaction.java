@@ -1,8 +1,18 @@
 package com.mfvanek.money.transfer.interfaces;
 
+import com.mfvanek.money.transfer.enums.TransactionState;
+
 import java.math.BigDecimal;
 
-public interface Transaction {
+public interface Transaction extends Identifiable {
 
-    boolean transfer(Account debit, Account credit, BigDecimal amount);
+    Account getDebit();
+
+    Account getCredit();
+
+    BigDecimal getAmount();
+
+    TransactionState getState();
+
+    boolean run();
 }

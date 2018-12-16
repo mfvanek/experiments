@@ -1,4 +1,4 @@
-package com.mfvanek.money.transfer.interfaces;
+package com.mfvanek.money.transfer.interfaces.repositories;
 
 public interface Repository<T> {
 

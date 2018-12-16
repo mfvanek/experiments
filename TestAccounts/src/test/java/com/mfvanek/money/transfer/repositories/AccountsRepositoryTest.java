@@ -1,7 +1,7 @@
 package com.mfvanek.money.transfer.repositories;
 
-import com.mfvanek.money.transfer.interfaces.AccountsRepository;
-import com.mfvanek.money.transfer.interfaces.PartyRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

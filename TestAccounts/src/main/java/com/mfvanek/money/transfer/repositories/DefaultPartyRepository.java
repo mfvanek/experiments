@@ -1,7 +1,7 @@
 package com.mfvanek.money.transfer.repositories;
 
 import com.mfvanek.money.transfer.interfaces.Party;
-import com.mfvanek.money.transfer.interfaces.PartyRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import com.mfvanek.money.transfer.models.parties.AbstractParty;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class DefaultPartyRepository implements PartyRepository {
 
     private final AtomicLong counter = new AtomicLong(0L);
-    private final ConcurrentMap<Long, Party> PARTIES = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Long, Party> parties = new ConcurrentHashMap<>();
     private final Long ourBankId;
 
     public DefaultPartyRepository() {
@@ -22,20 +22,20 @@ public class DefaultPartyRepository implements PartyRepository {
     @Override
     public Party addLegalPerson(String taxIdentificationNumber, String name) {
         final Party legalPerson = AbstractParty.makeLegalPerson(counter.incrementAndGet(), taxIdentificationNumber, name);
-        PARTIES.putIfAbsent(legalPerson.getId(), legalPerson);
+        parties.putIfAbsent(legalPerson.getId(), legalPerson);
         return legalPerson;
     }
 
     @Override
     public Party addPrivatePerson(String taxIdentificationNumber, String firstName, String lastName) {
         final Party privatePerson = AbstractParty.makePrivatePerson(counter.incrementAndGet(), taxIdentificationNumber, firstName, lastName);
-        PARTIES.putIfAbsent(privatePerson.getId(), privatePerson);
+        parties.putIfAbsent(privatePerson.getId(), privatePerson);
         return privatePerson;
     }
 
     @Override
     public Party getById(Long id) {
-        return PARTIES.getOrDefault(id, getInvalid());
+        return parties.getOrDefault(id, getInvalid());
     }
 
     @Override
@@ -51,6 +51,6 @@ public class DefaultPartyRepository implements PartyRepository {
 
     @Override
     public int size() {
-        return PARTIES.size();
+        return parties.size();
     }
 }

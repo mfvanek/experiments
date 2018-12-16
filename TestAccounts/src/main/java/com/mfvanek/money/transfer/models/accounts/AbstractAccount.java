@@ -1,16 +1,23 @@
 package com.mfvanek.money.transfer.models.accounts;
 
+import com.mfvanek.money.transfer.consts.Consts;
 import com.mfvanek.money.transfer.interfaces.Account;
 import com.mfvanek.money.transfer.interfaces.Currency;
 import com.mfvanek.money.transfer.interfaces.Party;
+import com.mfvanek.money.transfer.utils.validators.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public abstract class AbstractAccount implements Account {
+
+    private static final Logger logger = LoggerFactory.getLogger(AbstractAccount.class);
 
     private final Long id;
     private final Currency currency;
@@ -18,7 +25,7 @@ public abstract class AbstractAccount implements Account {
     private final Party holder;
     private final boolean active;
     private BigDecimal balance;
-    private final ReadWriteLock readWriteLock;
+    private final ReadWriteLock rwLock;
 
     private AbstractAccount(Long id, Currency currency, String number,
                             Party holder, boolean active, BigDecimal balance) {
@@ -27,7 +34,7 @@ public abstract class AbstractAccount implements Account {
         Objects.requireNonNull(number, "Number cannot be null");
         Objects.requireNonNull(holder, "Holder cannot be null");
         Objects.requireNonNull(balance, "Balance cannot be null");
-        validateAmount(balance);
+        Validator.validateAmount(balance);
 
         this.id = id;
         this.currency = currency;
@@ -35,7 +42,7 @@ public abstract class AbstractAccount implements Account {
         this.holder = holder;
         this.active = active;
         this.balance = balance;
-        this.readWriteLock = new ReentrantReadWriteLock();
+        this.rwLock = new ReentrantReadWriteLock();
     }
 
     AbstractAccount(Long id, Currency currency, String number, Party holder, boolean active) {
@@ -59,7 +66,7 @@ public abstract class AbstractAccount implements Account {
 
     @Override
     public final BigDecimal getBalance() {
-        final Lock lock = readWriteLock.readLock();
+        final Lock lock = rwLock.readLock();
         try {
             lock.lock();
             return balance;
@@ -71,17 +78,22 @@ public abstract class AbstractAccount implements Account {
     @Override
     public boolean debit(BigDecimal amount) {
         Objects.requireNonNull(amount, "Amount cannot be null");
-        validateAmount(amount);
+        Validator.validateAmount(amount);
 
-        final Lock lock = readWriteLock.writeLock();
+        final Lock lock = rwLock.writeLock();
         try {
-            lock.lock();
-            if (balance.compareTo(amount) > 0) {
-                balance = balance.subtract(amount);
-                return true;
+            if (lock.tryLock(Consts.ACCOUNT_WAIT_INTERVAL, TimeUnit.MILLISECONDS)) {
+                try {
+                    if (balance.compareTo(amount) > 0) {
+                        balance = balance.subtract(amount);
+                        return true;
+                    }
+                } finally {
+                    lock.unlock();
+                }
             }
-        } finally {
-            lock.unlock();
+        } catch (InterruptedException e) {
+            logger.error(e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -89,14 +101,19 @@ public abstract class AbstractAccount implements Account {
     @Override
     public boolean credit(BigDecimal amount) {
         Objects.requireNonNull(amount, "Amount cannot be null");
-        validateAmount(amount);
+        Validator.validateAmount(amount);
 
-        final Lock lock = readWriteLock.writeLock();
+        final Lock lock = rwLock.writeLock();
         try {
-            lock.lock();
-            balance = balance.add(amount);
-        } finally {
-            lock.unlock();
+            if (lock.tryLock(Consts.ACCOUNT_WAIT_INTERVAL, TimeUnit.MILLISECONDS)) {
+                try {
+                    balance = balance.add(amount);
+                } finally {
+                    lock.unlock();
+                }
+            }
+        } catch (InterruptedException e) {
+            logger.error(e.getLocalizedMessage(), e);
         }
         return true;
     }
@@ -111,10 +128,9 @@ public abstract class AbstractAccount implements Account {
         return active;
     }
 
-    private static void validateAmount(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
-        }
+    @Override
+    public Lock writeLock() {
+        return rwLock.writeLock();
     }
 
     public static Account getInvalid() {

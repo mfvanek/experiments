@@ -1,7 +1,7 @@
 package com.mfvanek.money.transfer.utils;
 
 import com.mfvanek.money.transfer.interfaces.Account;
-import com.mfvanek.money.transfer.interfaces.AccountsRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
 import com.mfvanek.money.transfer.interfaces.Party;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

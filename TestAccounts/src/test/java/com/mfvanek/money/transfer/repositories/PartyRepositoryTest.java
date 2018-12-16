@@ -1,7 +1,7 @@
 package com.mfvanek.money.transfer.repositories;
 
 import com.mfvanek.money.transfer.interfaces.Party;
-import com.mfvanek.money.transfer.interfaces.PartyRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

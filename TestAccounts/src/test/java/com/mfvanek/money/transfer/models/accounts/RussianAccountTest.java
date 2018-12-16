@@ -2,7 +2,7 @@ package com.mfvanek.money.transfer.models.accounts;
 
 import com.mfvanek.money.transfer.enums.Chapter;
 import com.mfvanek.money.transfer.interfaces.Account;
-import com.mfvanek.money.transfer.interfaces.PartyRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import com.mfvanek.money.transfer.models.currencies.BaseCurrency;
 import com.mfvanek.money.transfer.repositories.DefaultPartyRepository;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package com.mfvanek.money.transfer;
 
-import com.mfvanek.money.transfer.interfaces.AccountsRepository;
-import com.mfvanek.money.transfer.interfaces.PartyRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import com.mfvanek.money.transfer.repositories.DefaultAccountsRepository;
 import com.mfvanek.money.transfer.repositories.DefaultPartyRepository;
 import com.mfvanek.money.transfer.utils.Context;

@@ -1,7 +1,7 @@
 package com.mfvanek.money.transfer.utils;
 
-import com.mfvanek.money.transfer.interfaces.AccountsRepository;
-import com.mfvanek.money.transfer.interfaces.PartyRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import lombok.Getter;
 
 @Getter

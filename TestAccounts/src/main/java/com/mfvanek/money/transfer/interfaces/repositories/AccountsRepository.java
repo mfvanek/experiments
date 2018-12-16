@@ -1,4 +1,8 @@
-package com.mfvanek.money.transfer.interfaces;
+package com.mfvanek.money.transfer.interfaces.repositories;
+
+import com.mfvanek.money.transfer.interfaces.Account;
+import com.mfvanek.money.transfer.interfaces.Currency;
+import com.mfvanek.money.transfer.interfaces.Party;
 
 import java.math.BigDecimal;
 
