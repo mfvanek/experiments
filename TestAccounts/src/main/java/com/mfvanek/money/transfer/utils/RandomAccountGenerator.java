@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +27,9 @@ public class RandomAccountGenerator {
     private final List<Long> partyIds;
 
     public RandomAccountGenerator(Context context, List<Long> partyIds) {
+        Objects.requireNonNull(context, "Context cannot be null");
+        Objects.requireNonNull(partyIds, "Ids list cannot be null");
+
         this.ids = Collections.synchronizedList(new ArrayList<>(partyIds.size() * ACCOUNTS_FOR_CLIENT));
         this.context = context;
         this.partyIds = partyIds;

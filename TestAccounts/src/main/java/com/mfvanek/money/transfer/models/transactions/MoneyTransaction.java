@@ -32,6 +32,7 @@ public class MoneyTransaction implements Transaction {
         Objects.requireNonNull(credit, "Credit account cannot be null");
         Objects.requireNonNull(amount, "Amount cannot be null");
         Validator.validateAmount(amount);
+        Validator.validateAccountsAreValid(debit, credit);
         // TODO Support multi-currency operations
         Validator.validateCurrencyIsTheSame(debit, credit);
 
