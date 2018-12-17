@@ -92,7 +92,7 @@ public class DefaultAccountsRepository implements AccountsRepository {
         final BigDecimal expected = getInitialBalance();
         BigDecimal totalSum = BigDecimal.ZERO;
         for (Account a : accounts.values()) {
-            Validator.validateAmount(a);
+            Validator.validateAmountNotNegative(a);
             totalSum = totalSum.add(a.getBalance());
         }
         if (totalSum.compareTo(expected) != 0) {

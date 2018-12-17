@@ -34,7 +34,7 @@ public abstract class AbstractAccount implements Account {
         Objects.requireNonNull(number, "Number cannot be null");
         Objects.requireNonNull(holder, "Holder cannot be null");
         Objects.requireNonNull(balance, "Balance cannot be null");
-        Validator.validateAmount(balance);
+        Validator.validateAmountNotNegative(balance);
 
         this.id = id;
         this.currency = currency;
@@ -78,7 +78,7 @@ public abstract class AbstractAccount implements Account {
     @Override
     public boolean debit(BigDecimal amount) {
         Objects.requireNonNull(amount, "Amount cannot be null");
-        Validator.validateAmount(amount);
+        Validator.validateAmountNotNegative(amount);
 
         final Lock lock = rwLock.writeLock();
         try {
@@ -101,7 +101,7 @@ public abstract class AbstractAccount implements Account {
     @Override
     public boolean credit(BigDecimal amount) {
         Objects.requireNonNull(amount, "Amount cannot be null");
-        Validator.validateAmount(amount);
+        Validator.validateAmountNotNegative(amount);
 
         final Lock lock = rwLock.writeLock();
         try {

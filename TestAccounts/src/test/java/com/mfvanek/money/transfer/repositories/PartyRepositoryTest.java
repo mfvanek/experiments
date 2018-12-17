@@ -12,18 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PartyRepositoryTest {
 
     @Test
-    void addLegalPerson() {
-        final PartyRepository repository = make();
-        // TODO
-    }
-
-    @Test
-    void addPrivatePerson() {
-        final PartyRepository repository = make();
-        // TODO
-    }
-
-    @Test
     void getById() {
         final PartyRepository repository = make();
         Party pt = repository.getById(1L);

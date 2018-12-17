@@ -3,29 +3,14 @@ package com.mfvanek.money.transfer.repositories;
 import com.mfvanek.money.transfer.interfaces.Account;
 import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
 import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
+import com.mfvanek.money.transfer.utils.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccountsRepositoryTest {
-
-    @Test
-    void getById() {
-    }
-
-    @Test
-    void getInvalid() {
-    }
-
-    @Test
-    void addOurBankAccount() {
-    }
-
-    @Test
-    void addOurBankAccount1() {
-    }
+class AccountsRepositoryTest extends BaseTest {
 
     @Test
     void getInitialBalance() {
@@ -44,23 +29,10 @@ class AccountsRepositoryTest {
     }
 
     @Test
-    void addPassiveAccount() {
-    }
-
-    @Test
-    void addPassiveAccount1() {
-    }
-
-    @Test
     void size() {
         final AccountsRepository repository = make();
         assertEquals(1, repository.size());
         repository.addOurBankAccount("20202810100000012345", BigDecimal.ZERO);
         assertEquals(2, repository.size());
-    }
-
-    private AccountsRepository make() {
-        final PartyRepository partyRepository = new DefaultPartyRepository();
-        return new DefaultAccountsRepository(partyRepository);
     }
 }

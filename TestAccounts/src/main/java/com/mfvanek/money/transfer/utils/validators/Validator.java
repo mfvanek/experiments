@@ -6,15 +6,21 @@ import java.math.BigDecimal;
 
 public class Validator {
 
-    public static void validateAmount(Account account) {
+    public static void validateAmountNotNegative(Account account) {
         if (account.getBalance().compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Amount cannot be negative for " + account);
         }
     }
 
-    public static void validateAmount(BigDecimal amount) {
+    public static void validateAmountNotNegative(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Amount cannot be negative");
+        }
+    }
+
+    public static void validateAmountPositive(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
         }
     }
 
@@ -27,11 +33,17 @@ public class Validator {
 
     public static void validateAccountsAreValid(Account debit, Account credit) {
         if (debit.isNotValid()) {
-            throw new IllegalArgumentException("Debit account have to be valid");
+            throw new IllegalArgumentException("Debit account must be valid");
         }
 
         if (credit.isNotValid()) {
-            throw new IllegalArgumentException("Credit account have to be valid");
+            throw new IllegalArgumentException("Credit account must be valid");
+        }
+    }
+
+    public static void validateAccountIsDifferent(Account debit, Account credit) {
+        if (debit.equals(credit)) {
+            throw new IllegalArgumentException("Accounts must be different");
         }
     }
 }
