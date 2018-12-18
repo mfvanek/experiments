@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class AbstractGenerator {
@@ -33,21 +36,28 @@ public abstract class AbstractGenerator {
         this.message = message;
     }
 
-    abstract void doGenerate(final ExecutorService threadPool);
+    abstract List<Future<?>> doGenerate(final ExecutorService threadPool);
 
     public final List<Long> generate() {
-        logger.debug("Generating " + message);
         final long timeStart = System.currentTimeMillis();
         try {
-            final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-            doGenerate(threadPool);
-            threadPool.shutdown();
-            threadPool.awaitTermination(AWAIT_PERIOD, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            logger.error(e.getMessage(), e);
+            logger.info("Generating {}", message);
+            try {
+                final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+                final List<Future<?>> futures = doGenerate(threadPool);
+                threadPool.shutdown();
+                // threadPool.awaitTermination(AWAIT_PERIOD, TimeUnit.SECONDS);
+                logger.info("Waiting for completion...");
+                for (final Future<?> future : futures) {
+                    future.get(AWAIT_PERIOD, TimeUnit.SECONDS);
+                }
+            } catch (InterruptedException | ExecutionException | TimeoutException e) {
+                logger.error(e.getMessage(), e);
+            }
+        } finally {
+            final long timeEnd = System.currentTimeMillis();
+            logger.info("Generation {} is completed. Time elapsed = {} (ms)", message, timeEnd - timeStart);
         }
-        final long timeEnd = System.currentTimeMillis();
-        logger.debug("Generation is completed. Time elapsed = {} (ms)", timeEnd - timeStart);
         return Collections.unmodifiableList(ids);
     }
 }

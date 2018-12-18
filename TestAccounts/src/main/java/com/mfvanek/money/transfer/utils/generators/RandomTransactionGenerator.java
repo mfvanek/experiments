@@ -8,13 +8,15 @@ import com.mfvanek.money.transfer.utils.TransactionUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 public class RandomTransactionGenerator extends AbstractGenerator {
 
-    private static final int MAX_TRN_COUNT = 100_000;
+    private static final int MAX_TRN_COUNT = 10_000_000;
     private final List<Long> accountIds;
 
     public RandomTransactionGenerator(Context context, List<Long> accountIds) {
@@ -24,10 +26,12 @@ public class RandomTransactionGenerator extends AbstractGenerator {
     }
 
     @Override
-    void doGenerate(final ExecutorService threadPool) {
+    List<Future<?>> doGenerate(final ExecutorService threadPool) {
+        final List<Future<?>> futures = new ArrayList<>(MAX_TRN_COUNT);
         for (int i = 0; i < MAX_TRN_COUNT; ++i) {
-            threadPool.submit(this::generateTransaction);
+            futures.add(threadPool.submit(this::generateTransaction));
         }
+        return futures;
     }
 
     private void generateTransaction() {

@@ -5,21 +5,26 @@ import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import com.mfvanek.money.transfer.utils.Context;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 public class RandomPartyGenerator extends AbstractGenerator {
 
-    private static final int TOP_BOUND = 1000;
+    private static final int TOP_BOUND = 100_000;
 
     public RandomPartyGenerator(Context context) {
         super(context, TOP_BOUND, "parties");
     }
 
     @Override
-    void doGenerate(final ExecutorService threadPool) {
+    List<Future<?>> doGenerate(final ExecutorService threadPool) {
+        final List<Future<?>> futures = new ArrayList<>(TOP_BOUND);
         for (int i = 0; i < TOP_BOUND; ++i) {
-            threadPool.submit(this::generateParty);
+            futures.add(threadPool.submit(this::generateParty));
         }
+        return futures;
     }
 
     private void generateParty() {

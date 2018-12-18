@@ -7,9 +7,11 @@ import com.mfvanek.money.transfer.utils.Context;
 import com.mfvanek.money.transfer.utils.TransactionUtils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 public class InitialTransactionGenerator extends AbstractGenerator {
 
@@ -22,11 +24,13 @@ public class InitialTransactionGenerator extends AbstractGenerator {
     }
 
     @Override
-    void doGenerate(final ExecutorService threadPool) {
+    List<Future<?>> doGenerate(final ExecutorService threadPool) {
+        final List<Future<?>> futures = new ArrayList<>(accountIds.size());
         for (Long accountId : accountIds) {
             Runnable runnableTask = () -> this.generateInitialTransaction(accountId);
-            threadPool.submit(runnableTask);
+            futures.add(threadPool.submit(runnableTask));
         }
+        return futures;
     }
 
     private void generateInitialTransaction(final Long creditAccountId) {

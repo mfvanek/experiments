@@ -6,13 +6,15 @@ import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
 import com.mfvanek.money.transfer.utils.Context;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 public class RandomAccountGenerator extends AbstractGenerator {
 
-    private static final int ACCOUNTS_FOR_CLIENT = 2;
+    private static final int ACCOUNTS_FOR_CLIENT = 10;
     private final List<Long> partyIds;
 
     public RandomAccountGenerator(Context context, List<Long> partyIds) {
@@ -22,11 +24,13 @@ public class RandomAccountGenerator extends AbstractGenerator {
     }
 
     @Override
-    void doGenerate(final ExecutorService threadPool) {
+    List<Future<?>> doGenerate(final ExecutorService threadPool) {
+        final List<Future<?>> futures = new ArrayList<>(partyIds.size() * ACCOUNTS_FOR_CLIENT);
         for (Long partyId : partyIds) {
             Runnable runnableTask = () -> this.generateAccount(partyId);
-            threadPool.submit(runnableTask);
+            futures.add(threadPool.submit(runnableTask));
         }
+        return futures;
     }
 
     private void generateAccount(Long partyId) {

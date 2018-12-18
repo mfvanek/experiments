@@ -89,15 +89,21 @@ public class DefaultAccountsRepository implements AccountsRepository {
 
     @Override
     public void validateBalance() {
-        final BigDecimal expected = getInitialBalance();
-        BigDecimal totalSum = BigDecimal.ZERO;
-        for (Account a : accounts.values()) {
-            Validator.validateAmountNotNegative(a);
-            totalSum = totalSum.add(a.getBalance());
+        final long timeStart = System.currentTimeMillis();
+        try {
+            final BigDecimal expected = getInitialBalance();
+            BigDecimal totalSum = BigDecimal.ZERO;
+            for (Account a : accounts.values()) {
+                Validator.validateAmountNotNegative(a);
+                totalSum = totalSum.add(a.getBalance());
+            }
+            if (totalSum.compareTo(expected) != 0) {
+                throw new InvalidBalanceException(expected, totalSum);
+            }
+            logger.debug("Balance is valid! {} == {}", expected, totalSum);
+        } finally {
+            final long timeEnd = System.currentTimeMillis();
+            logger.info("Balance validation is completed. Time elapsed = {} (ms)", timeEnd - timeStart);
         }
-        if (totalSum.compareTo(expected) != 0) {
-            throw new InvalidBalanceException(expected, totalSum);
-        }
-        logger.debug("Balance is valid! {} == {}", expected, totalSum);
     }
 }
