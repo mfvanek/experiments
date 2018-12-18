@@ -27,8 +27,9 @@ public abstract class AbstractGenerator {
     final Context context;
     final Collection<Long> ids;
     private final String message;
+    private final int threadPoolSize;
 
-    AbstractGenerator(final Context context, final String message) {
+    AbstractGenerator(final Context context, final String message, final int threadPoolSize) {
         Objects.requireNonNull(context, "Context cannot be null");
         Objects.requireNonNull(message, "Message cannot be null");
 
@@ -36,6 +37,11 @@ public abstract class AbstractGenerator {
         this.context = context;
         this.ids = new ConcurrentLinkedQueue<>();
         this.message = message;
+        this.threadPoolSize = threadPoolSize;
+    }
+
+    AbstractGenerator(final Context context, final String message) {
+        this(context, message, Runtime.getRuntime().availableProcessors());
     }
 
     abstract List<Future<?>> doGenerate(final ExecutorService threadPool);
@@ -44,7 +50,7 @@ public abstract class AbstractGenerator {
         final long timeStart = System.currentTimeMillis();
         try {
             logger.info("Generating {}", message);
-            final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+            final ExecutorService threadPool = Executors.newFixedThreadPool(threadPoolSize);
             final List<Future<?>> futures = doGenerate(threadPool);
             threadPool.shutdown();
             waitForCompletion(futures);

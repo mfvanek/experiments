@@ -43,7 +43,7 @@ public class DemoApp {
             accountsRepository.validateBalance();
 
             // TODO run transactions
-            final AbstractGenerator transactionGenerator = new RandomTransactionGenerator(context, accountIds, false);
+            final AbstractGenerator transactionGenerator = new RandomTransactionGenerator(context, accountIds, false, 3);
             final List<Long> trnIds = transactionGenerator.generate();
             System.out.println("Transaction ids count = " + trnIds.size());
             System.out.println("Transaction repository size = " + transactionRepository.size());

@@ -20,8 +20,9 @@ public class RandomTransactionGenerator extends AbstractGenerator {
     private final List<Long> accountIds;
     private final boolean runImmediately;
 
-    public RandomTransactionGenerator(Context context, List<Long> accountIds, boolean runImmediately) {
-        super(context, "clients transactions");
+    public RandomTransactionGenerator(final Context context, final List<Long> accountIds,
+                                      final boolean runImmediately, final int threadPoolSize) {
+        super(context, "clients transactions", threadPoolSize);
         Objects.requireNonNull(accountIds, "Ids list cannot be null");
         this.accountIds = accountIds;
         this.runImmediately = runImmediately;
