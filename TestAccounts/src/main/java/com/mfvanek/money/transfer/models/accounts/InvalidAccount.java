@@ -29,6 +29,12 @@ final class InvalidAccount extends AbstractAccount {
         return (obj instanceof InvalidAccount);
     }
 
+    @Override
+    public String toString() {
+        final String base = super.toString();
+        return base.replace("Account{", "InvalidAccount{");
+    }
+
     private static class LazyHolder {
         private static final InvalidAccount INSTANCE = new InvalidAccount();
     }

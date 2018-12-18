@@ -29,7 +29,7 @@ class RussianAccountTest {
 
     @Test
     void getId() {
-        Account a = makeAccount(11L);
+        final Account a = makeAccount(11L);
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -38,7 +38,7 @@ class RussianAccountTest {
 
     @Test
     void getNumber() {
-        Account a = makeAccount();
+        final Account a = makeAccount();
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -62,7 +62,7 @@ class RussianAccountTest {
 
     @Test
     void getBalance() {
-        Account a = makeAccount();
+        final Account a = makeAccount();
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -71,7 +71,7 @@ class RussianAccountTest {
 
     @Test
     void getHolder() {
-        Account a = makeAccount();
+        final Account a = makeAccount();
         assertNotNull(a);
         assertTrue(a.isValid());
         assertTrue(a.isActive());
@@ -80,12 +80,21 @@ class RussianAccountTest {
 
     @Test
     void debitAndCredit() {
-        Account a = makeAccount();
+        final Account a = makeAccount();
         assertFalse(a.debit(BigDecimal.TEN));
         assertTrue(a.credit(BigDecimal.TEN));
         assertEquals(BigDecimal.TEN, a.getBalance());
         assertTrue(a.debit(BigDecimal.ONE));
         assertEquals(BigDecimal.valueOf(9), a.getBalance());
+    }
+
+    @Test
+    void toStringImpl() {
+        final Account a = makeAccount();
+        assertTrue(a.toString().startsWith("RussianAccount{"));
+        assertTrue(a.toString().contains(", chapter="));
+        assertEquals("RussianAccount{id=1, currency=BaseCurrency(isoCode=RUB), number=30102810100000000001, active=true, balance=0, holder=Party{Revolut LLC, type=LEGAL_PERSON, tax identification number=7703408188, id=1}, chapter=BALANCE}",
+                a.toString());
     }
 
     private RussianAccount makeAccount() {

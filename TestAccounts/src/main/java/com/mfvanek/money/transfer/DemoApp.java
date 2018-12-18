@@ -37,10 +37,14 @@ public class DemoApp {
             // accountIds.forEach(x -> System.out.print(x + " "));
 
             final RandomTransactionGenerator transactionGenerator = new RandomTransactionGenerator(context, accountIds);
-            final List<Long> trnIds = transactionGenerator.generateInitial();
+            List<Long> trnIds = transactionGenerator.generateInitial();
+            System.out.println("Initial transaction ids count = " + trnIds.size());
+            System.out.println("Transaction repository size = " + transactionRepository.size());
+            accountsRepository.validateBalance();
+
+            trnIds = transactionGenerator.generate();
             System.out.println("Transaction ids count = " + trnIds.size());
             System.out.println("Transaction repository size = " + transactionRepository.size());
-
             accountsRepository.validateBalance();
         } catch (Exception e) {
             e.printStackTrace();

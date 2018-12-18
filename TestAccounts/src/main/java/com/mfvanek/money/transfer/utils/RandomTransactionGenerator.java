@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
@@ -81,39 +82,52 @@ public class RandomTransactionGenerator {
         final Account credit = accountsRepository.getById(creditAccountId);
         if (credit.isValid()) {
             final BigDecimal amount = generateAmount(500_000, 1000_000);
-            logger.trace("Generated amount = {}", amount);
             final Transaction transaction = context.getTransactionRepository().add(debit, credit, amount);
             ids.add(transaction.getId());
             transaction.run();
+        } else {
+            logger.error("Credit account with id = {} not found", creditAccountId);
         }
-        // TODO throw exception on invalid account
     }
 
     private void generateTransaction() {
         final AccountsRepository accountsRepository = context.getAccountsRepository();
-        final Pair<Long, Long> randomIds = getRandomAccountIds();
+        final Pair<Long, Long> randomIds = getRandomAccountIds(accountIds);
         final Account debit = accountsRepository.getById(randomIds.getLeft());
         if (debit.isValid()) {
             final Account credit = accountsRepository.getById(randomIds.getRight());
             if (credit.isValid()) {
-                final BigDecimal amount = generateAmount(500_000, 1000_000);
-                logger.trace("Generated amount = {}", amount);
+                final BigDecimal amount = generateAmount(5_000, 100_000);
                 final Transaction transaction = context.getTransactionRepository().add(debit, credit, amount);
                 ids.add(transaction.getId());
                 transaction.run();
+            } else {
+                logger.error("Credit account with id = {} not found", randomIds.getRight());
             }
+        } else {
+            logger.error("Debit account with id = {} not found", randomIds.getLeft());
         }
-        // TODO throw exception on invalid account
     }
 
-    private Pair<Long, Long> getRandomAccountIds() {
-        final int debitIdx = ThreadLocalRandom.current().nextInt(ids.size());
+    private static Pair<Long, Long> getRandomAccountIds(final List<Long> accountIds) {
+        final int debitIdx = getRandom().nextInt(accountIds.size());
         final int creditIdx = debitIdx != 0 ? debitIdx - 1 : debitIdx + 1;
-        //return new Pair.of(ids.a[debitIdx], )
-        throw new UnsupportedOperationException();
+        final Pair<Long, Long> result = Pair.of(accountIds.get(debitIdx), accountIds.get(creditIdx));
+        logger.trace("Generated accounts pair = {}", result);
+        return result;
+    }
+
+    /**
+     * Gets Random instance in multithread environment
+     * @return Random instance
+     */
+    private static Random getRandom() {
+        return ThreadLocalRandom.current();
     }
 
     private static BigDecimal generateAmount(int min, int max) {
-        return BigDecimal.valueOf(min + ThreadLocalRandom.current().nextInt(max - min), 2);
+        final BigDecimal amount = BigDecimal.valueOf(min + getRandom().nextInt(max - min), 2);
+        logger.trace("Generated amount = {}", amount);
+        return amount;
     }
 }

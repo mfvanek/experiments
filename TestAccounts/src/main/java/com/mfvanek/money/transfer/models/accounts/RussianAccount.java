@@ -29,6 +29,12 @@ public final class RussianAccount extends AbstractAccount {
         return chapter;
     }
 
+    @Override
+    public String toString() {
+        final String base = super.toString();
+        return base.replace("Account{", "RussianAccount{").replaceFirst("(?s)(.*)}", "$1" + String.format(", chapter=%s}", chapter));
+    }
+
     private static void validateNumber(String number) {
         if (number.length() != 20) {
             throw new IllegalArgumentException("AbstractAccount number must contain 20 characters");

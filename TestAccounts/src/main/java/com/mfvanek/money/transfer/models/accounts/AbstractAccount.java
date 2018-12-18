@@ -133,6 +133,12 @@ public abstract class AbstractAccount implements Account {
         return rwLock.writeLock();
     }
 
+    @Override
+    public String toString() {
+        return String.format("Account{id=%d, currency=%s, number=%s, active=%s, balance=%s, holder=%s}",
+                id, currency, number, active, balance, holder);
+    }
+
     public static Account getInvalid() {
         return InvalidAccount.getInstance();
     }

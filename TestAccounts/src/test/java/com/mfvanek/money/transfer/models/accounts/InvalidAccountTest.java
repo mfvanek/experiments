@@ -32,4 +32,11 @@ class InvalidAccountTest {
         assertEquals(AbstractParty.getInvalid(), a.getHolder());
         assertFalse(a.isActive());
     }
+
+    @Test
+    void toStringImpl() {
+        final Account a = AbstractAccount.getInvalid();
+        assertNotNull(a);
+        assertTrue(a.toString().startsWith("InvalidAccount{"));
+    }
 }
