@@ -1,51 +1,25 @@
-package com.mfvanek.money.transfer.utils;
+package com.mfvanek.money.transfer.utils.generators;
 
 import com.mfvanek.money.transfer.interfaces.Party;
 import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
+import com.mfvanek.money.transfer.utils.Context;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class RandomPartyGenerator {
+public class RandomPartyGenerator extends AbstractGenerator {
 
-    private static final Logger logger = LoggerFactory.getLogger(RandomPartyGenerator.class);
     private static final int TOP_BOUND = 1000;
 
-    private final AtomicInteger counter = new AtomicInteger(0);
-    private final List<Long> ids = Collections.synchronizedList(new ArrayList<>(TOP_BOUND));
-    private final Context context;
-
     public RandomPartyGenerator(Context context) {
-        Objects.requireNonNull(context, "Context cannot be null");
-
-        this.context = context;
+        super(context, TOP_BOUND, "parties");
     }
 
-    public List<Long> generate() {
-        System.out.println("Generating parties");
-        final long timeStart = System.currentTimeMillis();
-        try {
-            final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-            for (int i = 0; i < TOP_BOUND; ++i) {
-                threadPool.submit(this::generateParty);
-            }
-            threadPool.shutdown();
-            threadPool.awaitTermination(TOP_BOUND / 1000, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            logger.error(e.getMessage(), e);
+    @Override
+    void doGenerate(final ExecutorService threadPool) {
+        for (int i = 0; i < TOP_BOUND; ++i) {
+            threadPool.submit(this::generateParty);
         }
-        final long timeEnd = System.currentTimeMillis();
-        System.out.println(String.format("Generation completed. Time elapsed = %d (ms)", timeEnd - timeStart));
-        return Collections.unmodifiableList(ids);
     }
 
     private void generateParty() {
