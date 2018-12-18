@@ -57,11 +57,22 @@ public abstract class AbstractGenerator {
 
     private void waitForCompletion(final List<Future<?>> futures) {
         logger.info("Waiting for completion of {} tasks...", futures.size());
+        int processed = 0;
+        int batch = 0;
+        final int threshold = futures.size() / 10;
         for (final Future<?> future : futures) {
             try {
                 future.get(AWAIT_PERIOD, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 logger.error(e.getMessage(), e);
+            } finally {
+                ++processed;
+                ++batch;
+            }
+            if (batch >= threshold) {
+                final int percentage = processed * 100 / futures.size();
+                logger.info("Completed {}%...", percentage);
+                batch = 0;
             }
         }
     }

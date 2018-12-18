@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 
 public class RandomTransactionGenerator extends AbstractGenerator {
 
-    private static final int MAX_TRN_COUNT = 1_000_000;
+    private static final int MAX_TRN_COUNT = 2_000_000;
     private final List<Long> accountIds;
 
     public RandomTransactionGenerator(Context context, List<Long> accountIds) {
