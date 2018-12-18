@@ -16,13 +16,15 @@ import java.util.concurrent.Future;
 
 public class RandomTransactionGenerator extends AbstractGenerator {
 
-    private static final int MAX_TRN_COUNT = 2_000_000;
+    private static final int MAX_TRN_COUNT = 10_000_000;
     private final List<Long> accountIds;
+    private final boolean runImmediately;
 
-    public RandomTransactionGenerator(Context context, List<Long> accountIds) {
-        super(context, "clients transactions", MAX_TRN_COUNT);
+    public RandomTransactionGenerator(Context context, List<Long> accountIds, boolean runImmediately) {
+        super(context, "clients transactions");
         Objects.requireNonNull(accountIds, "Ids list cannot be null");
         this.accountIds = accountIds;
+        this.runImmediately = runImmediately;
     }
 
     @Override
@@ -43,7 +45,9 @@ public class RandomTransactionGenerator extends AbstractGenerator {
             if (credit.isValid()) {
                 final BigDecimal amount = TransactionUtils.generateAmount(5_000, 100_000);
                 final Transaction transaction = context.getTransactionRepository().add(debit, credit, amount);
-                transaction.run();
+                if (runImmediately) {
+                    transaction.run();
+                }
                 ids.add(transaction.getId());
             } else {
                 logger.error("Credit account with id = {} not found", randomIds.getRight());

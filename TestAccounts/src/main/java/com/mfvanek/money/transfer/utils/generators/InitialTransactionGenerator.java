@@ -16,11 +16,13 @@ import java.util.concurrent.Future;
 public class InitialTransactionGenerator extends AbstractGenerator {
 
     private final List<Long> accountIds;
+    private final boolean runImmediately;
 
-    public InitialTransactionGenerator(Context context, List<Long> accountIds) {
-        super(context, "initial transactions", accountIds != null ? accountIds.size() : 100);
+    public InitialTransactionGenerator(Context context, List<Long> accountIds, boolean runImmediately) {
+        super(context, "initial transactions");
         Objects.requireNonNull(accountIds, "Ids list cannot be null");
         this.accountIds = accountIds;
+        this.runImmediately = runImmediately;
     }
 
     @Override
@@ -40,7 +42,9 @@ public class InitialTransactionGenerator extends AbstractGenerator {
         if (credit.isValid()) {
             final BigDecimal amount = TransactionUtils.generateAmount(500_000, 1000_000);
             final Transaction transaction = context.getTransactionRepository().add(debit, credit, amount);
-            transaction.run();
+            if (runImmediately) {
+                transaction.run();
+            }
             ids.add(transaction.getId());
         } else {
             logger.error("Credit account with id = {} not found", creditAccountId);

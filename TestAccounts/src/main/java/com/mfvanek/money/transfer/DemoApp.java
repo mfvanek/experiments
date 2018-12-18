@@ -36,13 +36,14 @@ public class DemoApp {
             System.out.println("Account ids count = " + accountIds.size());
             System.out.println("Account repository size = " + accountsRepository.size());
 
-            final AbstractGenerator initialTransactionGenerator = new InitialTransactionGenerator(context, accountIds);
+            final AbstractGenerator initialTransactionGenerator = new InitialTransactionGenerator(context, accountIds, true);
             final List<Long> initialTrnIds = initialTransactionGenerator.generate();
             System.out.println("Initial transaction ids count = " + initialTrnIds.size());
             System.out.println("Transaction repository size = " + transactionRepository.size());
             accountsRepository.validateBalance();
 
-            final AbstractGenerator transactionGenerator = new RandomTransactionGenerator(context, accountIds);
+            // TODO run transactions
+            final AbstractGenerator transactionGenerator = new RandomTransactionGenerator(context, accountIds, false);
             final List<Long> trnIds = transactionGenerator.generate();
             System.out.println("Transaction ids count = " + trnIds.size());
             System.out.println("Transaction repository size = " + transactionRepository.size());

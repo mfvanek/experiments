@@ -28,7 +28,7 @@ public abstract class AbstractGenerator {
     final Collection<Long> ids;
     private final String message;
 
-    AbstractGenerator(final Context context, final String message, final int expectedIdsCapacity) {
+    AbstractGenerator(final Context context, final String message) {
         Objects.requireNonNull(context, "Context cannot be null");
         Objects.requireNonNull(message, "Message cannot be null");
 
