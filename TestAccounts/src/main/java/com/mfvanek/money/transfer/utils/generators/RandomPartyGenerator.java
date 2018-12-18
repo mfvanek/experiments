@@ -15,7 +15,7 @@ public class RandomPartyGenerator extends AbstractGenerator {
     private static final int TOP_BOUND = 100_000;
 
     public RandomPartyGenerator(Context context) {
-        super(context, TOP_BOUND, "parties");
+        super(context, "parties", TOP_BOUND);
     }
 
     @Override

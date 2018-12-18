@@ -18,7 +18,7 @@ public class InitialTransactionGenerator extends AbstractGenerator {
     private final List<Long> accountIds;
 
     public InitialTransactionGenerator(Context context, List<Long> accountIds) {
-        super(context, accountIds != null ? accountIds.size() : 100, "initial transactions");
+        super(context, "initial transactions", accountIds != null ? accountIds.size() : 100);
         Objects.requireNonNull(accountIds, "Ids list cannot be null");
         this.accountIds = accountIds;
     }
@@ -40,8 +40,8 @@ public class InitialTransactionGenerator extends AbstractGenerator {
         if (credit.isValid()) {
             final BigDecimal amount = TransactionUtils.generateAmount(500_000, 1000_000);
             final Transaction transaction = context.getTransactionRepository().add(debit, credit, amount);
-            ids.add(transaction.getId());
             transaction.run();
+            ids.add(transaction.getId());
         } else {
             logger.error("Credit account with id = {} not found", creditAccountId);
         }

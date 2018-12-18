@@ -5,9 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,16 +25,16 @@ public abstract class AbstractGenerator {
 
     final AtomicInteger counter;
     final Context context;
-    final List<Long> ids;
+    final Collection<Long> ids;
     private final String message;
 
-    AbstractGenerator(final Context context, final int expectedIdsCapacity, final String message) {
+    AbstractGenerator(final Context context, final String message, final int expectedIdsCapacity) {
         Objects.requireNonNull(context, "Context cannot be null");
         Objects.requireNonNull(message, "Message cannot be null");
 
         this.counter = new AtomicInteger(0);
         this.context = context;
-        this.ids = Collections.synchronizedList(new ArrayList<>(expectedIdsCapacity));
+        this.ids = new ConcurrentLinkedQueue<>();
         this.message = message;
     }
 
@@ -42,22 +44,25 @@ public abstract class AbstractGenerator {
         final long timeStart = System.currentTimeMillis();
         try {
             logger.info("Generating {}", message);
-            try {
-                final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-                final List<Future<?>> futures = doGenerate(threadPool);
-                threadPool.shutdown();
-                // threadPool.awaitTermination(AWAIT_PERIOD, TimeUnit.SECONDS);
-                logger.info("Waiting for completion...");
-                for (final Future<?> future : futures) {
-                    future.get(AWAIT_PERIOD, TimeUnit.SECONDS);
-                }
-            } catch (InterruptedException | ExecutionException | TimeoutException e) {
-                logger.error(e.getMessage(), e);
-            }
+            final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+            final List<Future<?>> futures = doGenerate(threadPool);
+            threadPool.shutdown();
+            waitForCompletion(futures);
         } finally {
             final long timeEnd = System.currentTimeMillis();
             logger.info("Generation {} is completed. Time elapsed = {} (ms)", message, timeEnd - timeStart);
         }
-        return Collections.unmodifiableList(ids);
+        return Collections.unmodifiableList(new ArrayList<>(ids));
+    }
+
+    private void waitForCompletion(final List<Future<?>> futures) {
+        logger.info("Waiting for completion of {} tasks...", futures.size());
+        for (final Future<?> future : futures) {
+            try {
+                future.get(AWAIT_PERIOD, TimeUnit.SECONDS);
+            } catch (InterruptedException | ExecutionException | TimeoutException e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
     }
 }

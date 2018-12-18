@@ -18,7 +18,7 @@ public class RandomAccountGenerator extends AbstractGenerator {
     private final List<Long> partyIds;
 
     public RandomAccountGenerator(Context context, List<Long> partyIds) {
-        super(context, partyIds != null ? partyIds.size() * ACCOUNTS_FOR_CLIENT : 100, "accounts");
+        super(context, "accounts",  partyIds != null ? partyIds.size() * ACCOUNTS_FOR_CLIENT : 100);
         Objects.requireNonNull(partyIds, "Ids list cannot be null");
         this.partyIds = partyIds;
     }
