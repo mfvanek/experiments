@@ -12,8 +12,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class AbstractAccount implements Account {
 
@@ -25,7 +24,7 @@ public abstract class AbstractAccount implements Account {
     private final Party holder;
     private final boolean active;
     private BigDecimal balance;
-    private final ReadWriteLock rwLock;
+    private final Lock lock;
 
     AbstractAccount(Long id, Currency currency, String number,
                     Party holder, boolean active, BigDecimal balance) {
@@ -42,7 +41,7 @@ public abstract class AbstractAccount implements Account {
         this.holder = holder;
         this.active = active;
         this.balance = balance;
-        this.rwLock = new ReentrantReadWriteLock();
+        this.lock = new ReentrantLock();
     }
 
     AbstractAccount(Long id, Currency currency, String number, Party holder, boolean active) {
@@ -66,7 +65,6 @@ public abstract class AbstractAccount implements Account {
 
     @Override
     public final BigDecimal getBalance() {
-        final Lock lock = rwLock.readLock();
         try {
             lock.lock();
             return balance;
@@ -80,7 +78,6 @@ public abstract class AbstractAccount implements Account {
         Objects.requireNonNull(amount, "Amount cannot be null");
         Validator.validateAmountNotNegative(amount);
 
-        final Lock lock = rwLock.writeLock();
         try {
             if (lock.tryLock(Consts.ACCOUNT_WAIT_INTERVAL, TimeUnit.MILLISECONDS)) {
                 try {
@@ -103,7 +100,6 @@ public abstract class AbstractAccount implements Account {
         Objects.requireNonNull(amount, "Amount cannot be null");
         Validator.validateAmountNotNegative(amount);
 
-        final Lock lock = rwLock.writeLock();
         try {
             if (lock.tryLock(Consts.ACCOUNT_WAIT_INTERVAL, TimeUnit.MILLISECONDS)) {
                 try {
@@ -130,7 +126,7 @@ public abstract class AbstractAccount implements Account {
 
     @Override
     public Lock writeLock() {
-        return rwLock.writeLock();
+        return lock;
     }
 
     @Override

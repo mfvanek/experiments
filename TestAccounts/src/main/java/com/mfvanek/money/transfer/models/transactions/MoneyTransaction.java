@@ -12,8 +12,6 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class MoneyTransaction implements Transaction {
 
@@ -24,7 +22,6 @@ public class MoneyTransaction implements Transaction {
     private final Account credit;
     private final BigDecimal amount;
     private TransactionState state;
-    private final ReadWriteLock rwLock;
 
     MoneyTransaction(Long id, Account debit, Account credit, BigDecimal amount) {
         Objects.requireNonNull(id, "Id cannot be null");
@@ -42,7 +39,6 @@ public class MoneyTransaction implements Transaction {
         this.credit = credit;
         this.amount = amount;
         this.state = TransactionState.NEW;
-        this.rwLock = new ReentrantReadWriteLock();
     }
 
     @Override
@@ -66,32 +62,15 @@ public class MoneyTransaction implements Transaction {
     }
 
     @Override
-    public TransactionState getState() {
-        final Lock lock = rwLock.readLock();
-        try {
-            lock.lock();
-            return state;
-        } finally {
-            lock.unlock();
-        }
+    public synchronized TransactionState getState() {
+        return state;
     }
 
     @Override
-    public boolean run() {
-        final Lock lock = rwLock.writeLock();
-        try {
-            if (lock.tryLock(Consts.TRANSACTION_WAIT_INTERVAL, TimeUnit.MILLISECONDS)) {
-                try {
-                    if (state != TransactionState.COMPLETED) {
-                        changeState();
-                        return doRun();
-                    }
-                } finally {
-                    lock.unlock();
-                }
-            }
-        } catch (InterruptedException e) {
-            logger.error(e.getLocalizedMessage(), e);
+    public synchronized boolean run() {
+        if (state != TransactionState.COMPLETED) {
+            changeState();
+            return doRun();
         }
         return false;
     }
