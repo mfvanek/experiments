@@ -17,6 +17,13 @@ import java.util.List;
 
 public class DemoApp {
 
+    /**
+     * Use [java -XshowSettings:vm] to see max heap size
+     * In order to run this app please consider to increase default java heap size as following:
+     * Go to => Run/Debug Configuration => VM Options and set up VM Options = -Xms6G -Xmx8G
+     * or
+     * try to use environment variable JAVA_TOOL_OPTIONS = -Xms6G -Xmx8G
+     */
     public static void main(String[] args) {
         try {
             final PartyRepository partyRepository = new DefaultPartyRepository();
@@ -42,8 +49,7 @@ public class DemoApp {
             System.out.println("Transaction repository size = " + transactionRepository.size());
             accountsRepository.validateBalance();
 
-            // TODO run transactions
-            final AbstractGenerator transactionGenerator = new RandomTransactionGenerator(context, accountIds, false, 3);
+            final AbstractGenerator transactionGenerator = new RandomTransactionGenerator(context, accountIds, true, 10);
             final List<Long> trnIds = transactionGenerator.generate();
             System.out.println("Transaction ids count = " + trnIds.size());
             System.out.println("Transaction repository size = " + transactionRepository.size());
