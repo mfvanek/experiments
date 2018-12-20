@@ -4,6 +4,8 @@ import com.mfvanek.money.transfer.interfaces.Party;
 import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import com.mfvanek.money.transfer.models.parties.AbstractParty;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -42,6 +44,16 @@ public class DefaultPartyRepository implements PartyRepository {
     public Party getOurBank() {
         // by design
         return getById(ourBankId);
+    }
+
+    @Override
+    public Collection<Party> getAll() {
+        return Collections.unmodifiableCollection(parties.values());
+    }
+
+    @Override
+    public Collection<Party> getAll(int pageNumber, int recordsPerPage) {
+        throw new IllegalStateException();
     }
 
     @Override

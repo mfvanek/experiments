@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -105,5 +107,15 @@ public class DefaultAccountsRepository implements AccountsRepository {
             final long timeEnd = System.currentTimeMillis();
             logger.info("Balance validation is completed. Time elapsed = {} (ms)", timeEnd - timeStart);
         }
+    }
+
+    @Override
+    public Collection<Account> getAll() {
+        return Collections.unmodifiableCollection(accounts.values());
+    }
+
+    @Override
+    public Collection<Account> getAll(int pageNumber, int recordsPerPage) {
+        throw new IllegalStateException();
     }
 }

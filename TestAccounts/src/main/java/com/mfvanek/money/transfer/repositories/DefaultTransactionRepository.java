@@ -6,6 +6,8 @@ import com.mfvanek.money.transfer.interfaces.repositories.TransactionRepository;
 import com.mfvanek.money.transfer.models.transactions.MoneyTransaction;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -35,5 +37,15 @@ public class DefaultTransactionRepository implements TransactionRepository {
         final Transaction transaction = MoneyTransaction.make(counter.incrementAndGet(), debit, credit, amount);
         transactions.putIfAbsent(transaction.getId(), transaction);
         return transaction;
+    }
+
+    @Override
+    public Collection<Transaction> getAll() {
+        return Collections.unmodifiableCollection(transactions.values());
+    }
+
+    @Override
+    public Collection<Transaction> getAll(int pageNumber, int recordsPerPage) {
+        throw new IllegalStateException();
     }
 }

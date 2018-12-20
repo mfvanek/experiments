@@ -1,6 +1,6 @@
 package com.mfvanek.money.transfer.interfaces.repositories;
 
-public interface Repository<T> {
+public interface Repository<T> extends Pageable<T> {
 
     int size();
 
