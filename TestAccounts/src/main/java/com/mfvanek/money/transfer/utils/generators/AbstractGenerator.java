@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class AbstractGenerator {
+abstract class AbstractGenerator {
 
     private static final int AWAIT_PERIOD = 10; // in seconds
     static final Logger logger = LoggerFactory.getLogger(AbstractGenerator.class);
@@ -46,7 +46,7 @@ public abstract class AbstractGenerator {
 
     abstract List<Future<?>> doGenerate(final ExecutorService threadPool);
 
-    public final List<Long> generate() {
+    final List<Long> generate() {
         final long timeStart = System.currentTimeMillis();
         try {
             logger.info("Generating {}", message);

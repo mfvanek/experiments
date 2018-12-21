@@ -10,18 +10,20 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class RandomPartyGenerator extends AbstractGenerator {
+class RandomPartyGenerator extends AbstractGenerator {
 
-    private static final int TOP_BOUND = 100_000;
+    private final int partiesCount;
 
-    public RandomPartyGenerator(Context context) {
+    RandomPartyGenerator(final Context context, final int partiesCount) {
         super(context, "parties");
+        // TODO validate partiesCount
+        this.partiesCount = partiesCount;
     }
 
     @Override
     List<Future<?>> doGenerate(final ExecutorService threadPool) {
-        final List<Future<?>> futures = new ArrayList<>(TOP_BOUND);
-        for (int i = 0; i < TOP_BOUND; ++i) {
+        final List<Future<?>> futures = new ArrayList<>(partiesCount);
+        for (int i = 0; i < partiesCount; ++i) {
             futures.add(threadPool.submit(this::generateParty));
         }
         return futures;

@@ -13,12 +13,12 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class InitialTransactionGenerator extends AbstractGenerator {
+class InitialTransactionGenerator extends AbstractGenerator {
 
     private final List<Long> accountIds;
     private final boolean runImmediately;
 
-    public InitialTransactionGenerator(Context context, List<Long> accountIds, boolean runImmediately) {
+    InitialTransactionGenerator(Context context, List<Long> accountIds, boolean runImmediately) {
         super(context, "initial transactions");
         Objects.requireNonNull(accountIds, "Ids list cannot be null");
         this.accountIds = accountIds;
@@ -40,6 +40,7 @@ public class InitialTransactionGenerator extends AbstractGenerator {
         final Account debit = accountsRepository.getOurBankMainAccount();
         final Account credit = accountsRepository.getById(creditAccountId);
         if (credit.isValid()) {
+            // TODO move to params
             final BigDecimal amount = TransactionUtils.generateAmount(500_000, 1000_000);
             final Transaction transaction = context.getTransactionRepository().add(debit, credit, amount);
             if (runImmediately) {

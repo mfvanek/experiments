@@ -12,20 +12,22 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class RandomAccountGenerator extends AbstractGenerator {
+class RandomAccountGenerator extends AbstractGenerator {
 
-    private static final int ACCOUNTS_FOR_CLIENT = 10;
+    private final int accountsPerClient;
     private final List<Long> partyIds;
 
-    public RandomAccountGenerator(Context context, List<Long> partyIds) {
+    RandomAccountGenerator(final Context context, final List<Long> partyIds, final int accountsPerClient) {
         super(context, "accounts");
         Objects.requireNonNull(partyIds, "Ids list cannot be null");
+        // TODO validate accountsPerClient
         this.partyIds = partyIds;
+        this.accountsPerClient = accountsPerClient;
     }
 
     @Override
     List<Future<?>> doGenerate(final ExecutorService threadPool) {
-        final List<Future<?>> futures = new ArrayList<>(partyIds.size() * ACCOUNTS_FOR_CLIENT);
+        final List<Future<?>> futures = new ArrayList<>(partyIds.size() * accountsPerClient);
         for (Long partyId : partyIds) {
             Runnable runnableTask = () -> this.generateAccount(partyId);
             futures.add(threadPool.submit(runnableTask));
@@ -37,7 +39,7 @@ public class RandomAccountGenerator extends AbstractGenerator {
         final AccountsRepository accountsRepository = context.getAccountsRepository();
         final Party pt = context.getPartyRepository().getById(partyId);
         if (pt.isValid()) {
-            for (int i = 0; i < ACCOUNTS_FOR_CLIENT; ++i) {
+            for (int i = 0; i < accountsPerClient; ++i) {
                 final int idx = counter.incrementAndGet();
                 final Account a = accountsRepository.addPassiveAccount(generateNumber(idx), pt);
                 ids.add(a.getId());

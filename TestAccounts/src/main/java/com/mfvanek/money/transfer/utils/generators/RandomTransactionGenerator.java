@@ -14,24 +14,26 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class RandomTransactionGenerator extends AbstractGenerator {
+class RandomTransactionGenerator extends AbstractGenerator {
 
-    private static final int MAX_TRN_COUNT = 1_000_000;
+    private final int trnCount;
     private final List<Long> accountIds;
     private final boolean runImmediately;
 
-    public RandomTransactionGenerator(final Context context, final List<Long> accountIds,
-                                      final boolean runImmediately, final int threadPoolSize) {
+    RandomTransactionGenerator(final Context context, final List<Long> accountIds,
+                               final boolean runImmediately, final int threadPoolSize, int trnCount) {
         super(context, "clients transactions", threadPoolSize);
         Objects.requireNonNull(accountIds, "Ids list cannot be null");
+        // TODO validate trnCount
         this.accountIds = accountIds;
         this.runImmediately = runImmediately;
+        this.trnCount = trnCount;
     }
 
     @Override
     List<Future<?>> doGenerate(final ExecutorService threadPool) {
-        final List<Future<?>> futures = new ArrayList<>(MAX_TRN_COUNT);
-        for (int i = 0; i < MAX_TRN_COUNT; ++i) {
+        final List<Future<?>> futures = new ArrayList<>(trnCount);
+        for (int i = 0; i < trnCount; ++i) {
             futures.add(threadPool.submit(this::generateTransaction));
         }
         return futures;
@@ -44,6 +46,7 @@ public class RandomTransactionGenerator extends AbstractGenerator {
         if (debit.isValid()) {
             final Account credit = accountsRepository.getById(randomIds.getRight());
             if (credit.isValid()) {
+                // TODO move to params
                 final BigDecimal amount = TransactionUtils.generateAmount(5_000, 100_000);
                 final Transaction transaction = context.getTransactionRepository().add(debit, credit, amount);
                 if (runImmediately) {

@@ -15,7 +15,7 @@ public class Context {
     private final AccountsRepository accountsRepository;
     private final TransactionRepository transactionRepository;
 
-    public Context(PartyRepository partyRepository,
+    private Context(PartyRepository partyRepository,
                    AccountsRepository accountsRepository,
                    TransactionRepository transactionRepository) {
         this.partyRepository = partyRepository;
@@ -23,7 +23,7 @@ public class Context {
         this.transactionRepository = transactionRepository;
     }
 
-    public static Context create() {
+    static Context create() {
         final PartyRepository partyRepository = new DefaultPartyRepository();
         final AccountsRepository accountsRepository = new DefaultAccountsRepository(partyRepository);
         final TransactionRepository transactionRepository = new DefaultTransactionRepository();
