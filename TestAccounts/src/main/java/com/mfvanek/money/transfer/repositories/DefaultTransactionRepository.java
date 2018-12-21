@@ -2,6 +2,7 @@ package com.mfvanek.money.transfer.repositories;
 
 import com.mfvanek.money.transfer.interfaces.Account;
 import com.mfvanek.money.transfer.interfaces.Transaction;
+import com.mfvanek.money.transfer.interfaces.repositories.PagedResult;
 import com.mfvanek.money.transfer.interfaces.repositories.TransactionRepository;
 import com.mfvanek.money.transfer.models.transactions.MoneyTransaction;
 
@@ -45,7 +46,7 @@ public class DefaultTransactionRepository implements TransactionRepository {
     }
 
     @Override
-    public Collection<Transaction> getAll(int pageNumber, int recordsPerPage) {
-        throw new IllegalStateException();
+    public PagedResult<Transaction> getAll(int pageNumber, int recordsPerPage) {
+        return PagedResultImpl.from(pageNumber, recordsPerPage, transactions);
     }
 }

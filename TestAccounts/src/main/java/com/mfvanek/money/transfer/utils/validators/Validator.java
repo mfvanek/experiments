@@ -3,6 +3,7 @@ package com.mfvanek.money.transfer.utils.validators;
 import com.mfvanek.money.transfer.interfaces.Account;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 public class Validator {
 
@@ -44,6 +45,22 @@ public class Validator {
     public static void validateAccountIsDifferent(Account debit, Account credit) {
         if (debit.equals(credit)) {
             throw new IllegalArgumentException("Accounts must be different");
+        }
+    }
+
+    public static <T> void validatePagination(final int pageNumber, final int recordsPerPage) {
+        if (pageNumber < 1) {
+            throw new IllegalArgumentException("Page number should be positive and starts with 1");
+        }
+
+        if (recordsPerPage < 1) {
+            throw new IllegalArgumentException("Amount from records per page should be greater than zero");
+        }
+    }
+
+    public static <T> void validatePageableContentSize(final Collection<T> pageableContent, final int recordsPerPage) {
+        if (pageableContent.size() > recordsPerPage + 1) {
+            throw new IllegalArgumentException("Pageable content size is too big");
         }
     }
 }

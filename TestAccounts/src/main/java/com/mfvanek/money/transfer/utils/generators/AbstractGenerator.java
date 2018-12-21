@@ -62,7 +62,7 @@ public abstract class AbstractGenerator {
     }
 
     private void waitForCompletion(final List<Future<?>> futures) {
-        logger.info("Waiting for completion of {} tasks...", futures.size());
+        logger.info("Waiting for completion from {} tasks...", futures.size());
         int processed = 0;
         int batch = 0;
         final int threshold = futures.size() / 10;

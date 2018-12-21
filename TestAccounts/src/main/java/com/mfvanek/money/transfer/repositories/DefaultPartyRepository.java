@@ -1,6 +1,7 @@
 package com.mfvanek.money.transfer.repositories;
 
 import com.mfvanek.money.transfer.interfaces.Party;
+import com.mfvanek.money.transfer.interfaces.repositories.PagedResult;
 import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import com.mfvanek.money.transfer.models.parties.AbstractParty;
 
@@ -52,8 +53,8 @@ public class DefaultPartyRepository implements PartyRepository {
     }
 
     @Override
-    public Collection<Party> getAll(int pageNumber, int recordsPerPage) {
-        throw new IllegalStateException();
+    public PagedResult<Party> getAll(int pageNumber, int recordsPerPage) {
+        return PagedResultImpl.from(pageNumber, recordsPerPage, parties);
     }
 
     @Override

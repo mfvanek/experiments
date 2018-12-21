@@ -5,6 +5,7 @@ import com.mfvanek.money.transfer.interfaces.Account;
 import com.mfvanek.money.transfer.interfaces.Currency;
 import com.mfvanek.money.transfer.interfaces.Party;
 import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
+import com.mfvanek.money.transfer.interfaces.repositories.PagedResult;
 import com.mfvanek.money.transfer.interfaces.repositories.PartyRepository;
 import com.mfvanek.money.transfer.models.accounts.AbstractAccount;
 import com.mfvanek.money.transfer.models.currencies.BaseCurrency;
@@ -115,7 +116,7 @@ public class DefaultAccountsRepository implements AccountsRepository {
     }
 
     @Override
-    public Collection<Account> getAll(int pageNumber, int recordsPerPage) {
-        throw new IllegalStateException();
+    public PagedResult<Account> getAll(int pageNumber, int recordsPerPage) {
+        return PagedResultImpl.from(pageNumber, recordsPerPage, accounts);
     }
 }

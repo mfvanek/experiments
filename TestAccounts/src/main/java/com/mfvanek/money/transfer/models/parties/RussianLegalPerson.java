@@ -2,7 +2,7 @@ package com.mfvanek.money.transfer.models.parties;
 
 final class RussianLegalPerson extends LegalPerson {
 
-    // Without 'Reason code of registration' (КПП)
+    // Without 'Reason code from registration' (КПП)
 
     RussianLegalPerson(Long id, String taxIdentificationNumber, String name) {
         super(id, taxIdentificationNumber, name);

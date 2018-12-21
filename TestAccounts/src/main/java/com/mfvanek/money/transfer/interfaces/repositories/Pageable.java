@@ -6,5 +6,5 @@ public interface Pageable<T> {
 
     Collection<T> getAll();
 
-    Collection<T> getAll(int pageNumber, int recordsPerPage);
+    PagedResult<T> getAll(int pageNumber, int recordsPerPage);
 }
