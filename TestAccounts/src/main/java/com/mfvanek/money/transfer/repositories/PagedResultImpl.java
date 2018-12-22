@@ -3,6 +3,7 @@ package com.mfvanek.money.transfer.repositories;
 import com.mfvanek.money.transfer.interfaces.Identifiable;
 import com.mfvanek.money.transfer.interfaces.repositories.PagedResult;
 import com.mfvanek.money.transfer.utils.validators.Validator;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@ToString
 public class PagedResultImpl<T> implements PagedResult<T> {
 
     private final boolean existsNextPage;

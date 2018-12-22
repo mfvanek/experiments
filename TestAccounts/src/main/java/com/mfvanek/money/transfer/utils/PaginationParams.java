@@ -17,10 +17,10 @@ public class PaginationParams {
         int limit = 0;
         int page = 0;
         boolean valid = false;
-        final String limitStr = request.params("limit");
+        final String limitStr = request.queryParams("limit");
         if (limitStr != null) {
             limit = Integer.parseInt(limitStr, 10);
-            final String pageStr = request.params("page");
+            final String pageStr = request.queryParams("page");
             if (pageStr != null) {
                 page = Integer.parseInt(pageStr, 10);
             } else {

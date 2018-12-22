@@ -34,6 +34,8 @@ public class Main {
             if (pgParams.isValid()) {
                 return repository.getAll(pgParams.getPageNumber(), pgParams.getRecordsPerPage());
             }
+            // TODO to response object
+            // TODO to json
             return repository.getAll();
         });
 
@@ -56,5 +58,7 @@ public class Main {
             }
             return repository.getAll();
         });
+
+        Spark.after((req, res) -> res.type("application/json"));
     }
 }
