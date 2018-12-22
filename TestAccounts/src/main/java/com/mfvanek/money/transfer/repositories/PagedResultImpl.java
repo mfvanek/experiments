@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @ToString
 public class PagedResultImpl<T> implements PagedResult<T> {
 
-    private final boolean existsNextPage;
+    private final boolean hasMore;
     private final int pageNumber;
     private final int recordsPerPage;
     private final Collection<T> content;
@@ -29,8 +29,8 @@ public class PagedResultImpl<T> implements PagedResult<T> {
 
         this.pageNumber = pageNumber;
         this.recordsPerPage = recordsPerPage;
-        this.existsNextPage = content.size() > recordsPerPage;
-        if (this.existsNextPage) {
+        this.hasMore = content.size() > recordsPerPage;
+        if (this.hasMore) {
             content.removeLast();
         }
         this.content = Collections.unmodifiableCollection(content);
@@ -38,7 +38,7 @@ public class PagedResultImpl<T> implements PagedResult<T> {
 
     @Override
     public boolean hasMore() {
-        return existsNextPage;
+        return hasMore;
     }
 
     @Override

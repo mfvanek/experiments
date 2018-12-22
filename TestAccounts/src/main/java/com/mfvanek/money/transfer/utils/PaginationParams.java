@@ -13,7 +13,7 @@ public class PaginationParams {
     private final int pageNumber;
     private final boolean valid;
 
-    public PaginationParams(Request request) {
+    private PaginationParams(Request request) {
         int limit = 0;
         int page = 0;
         boolean valid = false;
@@ -34,7 +34,15 @@ public class PaginationParams {
         this.valid = valid;
     }
 
-    public boolean isValid() {
-        return valid;
+    private boolean isNotValid() {
+        return !valid;
+    }
+
+    public static PaginationParams from(Request request) {
+        final PaginationParams pgParams = new PaginationParams(request);
+        if (pgParams.isNotValid()) {
+            throw new IllegalArgumentException("Invalid pagination parameters");
+        }
+        return pgParams;
     }
 }
