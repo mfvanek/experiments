@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
+// TODO Add DateCreated and LastModifiedDate
 public class MoneyTransaction implements Transaction {
 
     private static final Logger logger = LoggerFactory.getLogger(MoneyTransaction.class);

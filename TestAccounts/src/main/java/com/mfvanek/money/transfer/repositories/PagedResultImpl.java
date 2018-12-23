@@ -12,6 +12,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @ToString
@@ -62,10 +63,24 @@ public class PagedResultImpl<T> implements PagedResult<T> {
         return new PagedResultImpl<>(pageNumber, recordsPerPage, content);
     }
 
-    public static <T extends Identifiable> PagedResult<T> from(final int pageNumber, final int recordsPerPage, final Map<Long, T> content) {
+    public static <T extends Identifiable> PagedResult<T> from(final int pageNumber, final int recordsPerPage,
+                                                               final Map<Long, T> content) {
         Validator.validatePagination(pageNumber, recordsPerPage);
         Objects.requireNonNull(content, "Content cannot be null");
         final Deque<T> pagedContent = content.values().stream()
+                .sorted(Comparator.comparing(T::getId))
+                .skip(recordsPerPage * (pageNumber - 1))
+                .limit(recordsPerPage + 1)
+                .collect(Collectors.toCollection(LinkedList::new));
+        return PagedResultImpl.of(pageNumber, recordsPerPage, pagedContent);
+    }
+
+    public static <T extends Identifiable> PagedResult<T> from(final int pageNumber, final int recordsPerPage,
+                                                               final Map<Long, T> content, Predicate<T> predicate) {
+        Validator.validatePagination(pageNumber, recordsPerPage);
+        Objects.requireNonNull(content, "Content cannot be null");
+        final Deque<T> pagedContent = content.values().stream()
+                .filter(predicate)
                 .sorted(Comparator.comparing(T::getId))
                 .skip(recordsPerPage * (pageNumber - 1))
                 .limit(recordsPerPage + 1)

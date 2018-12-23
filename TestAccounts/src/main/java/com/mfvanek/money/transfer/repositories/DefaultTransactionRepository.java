@@ -7,9 +7,11 @@ import com.mfvanek.money.transfer.interfaces.repositories.TransactionRepository;
 import com.mfvanek.money.transfer.models.transactions.MoneyTransaction;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Predicate;
 
 public class DefaultTransactionRepository implements TransactionRepository {
 
@@ -41,5 +43,12 @@ public class DefaultTransactionRepository implements TransactionRepository {
     @Override
     public PagedResult<Transaction> getAll(int pageNumber, int recordsPerPage) {
         return PagedResultImpl.from(pageNumber, recordsPerPage, transactions);
+    }
+
+    @Override
+    public PagedResult<Transaction> getByAccount(Account account, int pageNumber, int recordsPerPage) {
+        Objects.requireNonNull(account, "Account cannot be null");
+        Predicate<Transaction> predicate = t -> t.getDebit().equals(account) || t.getCredit().equals(account);
+        return PagedResultImpl.from(pageNumber, recordsPerPage, transactions, predicate);
     }
 }

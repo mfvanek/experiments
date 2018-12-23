@@ -6,6 +6,7 @@ import com.mfvanek.money.transfer.interfaces.Party;
 import com.mfvanek.money.transfer.interfaces.Transaction;
 import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
 import com.mfvanek.money.transfer.interfaces.repositories.Repository;
+import com.mfvanek.money.transfer.interfaces.repositories.TransactionRepository;
 import com.mfvanek.money.transfer.utils.Bank;
 import com.mfvanek.money.transfer.utils.JsonUtils;
 import com.mfvanek.money.transfer.utils.PaginationParams;
@@ -36,7 +37,7 @@ public class Main {
         Spark.get("/parties", (req, res) -> {
             final Repository<Party> repository = Bank.getInstance().getContext().getPartyRepository();
             final PaginationParams pgParams = PaginationParams.from(req);
-            return JsonUtils.make().toJson(repository.getAll(pgParams.getPageNumber(), pgParams.getRecordsPerPage()));
+            return JsonUtils.make().toJson(repository.getAll(pgParams));
         });
 
         // http://localhost:9999/parties/1
@@ -57,7 +58,7 @@ public class Main {
         Spark.get("/accounts", (req, res) -> {
             final Repository<Account> repository = Bank.getInstance().getContext().getAccountsRepository();
             final PaginationParams pgParams = PaginationParams.from(req);
-            return JsonUtils.make().toJson(repository.getAll(pgParams.getPageNumber(), pgParams.getRecordsPerPage()));
+            return JsonUtils.make().toJson(repository.getAll(pgParams));
         });
 
         // http://localhost:9999/accounts/1
@@ -66,11 +67,20 @@ public class Main {
             return JsonUtils.make().toJson(findById(Account.class, repository, req));
         });
 
+        // http://localhost:9999/accounts/1/transactions?limit=100
+        Spark.get("/accounts/:id/transactions", (req, res) -> {
+            final Repository<Account> repository = Bank.getInstance().getContext().getAccountsRepository();
+            final Account account = findById(Account.class, repository, req);
+            final TransactionRepository transactionRepository = Bank.getInstance().getContext().getTransactionRepository();
+            final PaginationParams pgParams = PaginationParams.from(req);
+            return JsonUtils.make().toJson(transactionRepository.getByAccount(account, pgParams));
+        });
+
         // http://localhost:9999/transactions?limit=100
         Spark.get("/transactions", (req, res) -> {
             final Repository<Transaction> repository = Bank.getInstance().getContext().getTransactionRepository();
             final PaginationParams pgParams = PaginationParams.from(req);
-            return JsonUtils.make().toJson(repository.getAll(pgParams.getPageNumber(), pgParams.getRecordsPerPage()));
+            return JsonUtils.make().toJson(repository.getAll(pgParams));
         });
 
         // http://localhost:9999/transactions/1

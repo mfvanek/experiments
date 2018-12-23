@@ -1,15 +1,13 @@
 package com.mfvanek.money.transfer.utils;
 
-import lombok.Getter;
+import com.mfvanek.money.transfer.interfaces.repositories.Pagination;
 import lombok.ToString;
 import spark.Request;
 
 @ToString
-public class PaginationParams {
+public final class PaginationParams implements Pagination {
 
-    @Getter
     private final int recordsPerPage;
-    @Getter
     private final int pageNumber;
     private final boolean valid;
 
@@ -34,8 +32,19 @@ public class PaginationParams {
         this.valid = valid;
     }
 
-    private boolean isNotValid() {
-        return !valid;
+    @Override
+    public int getRecordsPerPage() {
+        return recordsPerPage;
+    }
+
+    @Override
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    @Override
+    public boolean isValid() {
+        return valid;
     }
 
     public static PaginationParams from(Request request) {
