@@ -90,7 +90,7 @@ public class DefaultAccountsRepository implements AccountsRepository {
 
     @Override
     public void validateBalance() {
-        final long timeStart = System.currentTimeMillis();
+        final long timeStart = System.nanoTime();
         try {
             final BigDecimal expected = getInitialBalance();
             BigDecimal totalSum = BigDecimal.ZERO;
@@ -103,8 +103,8 @@ public class DefaultAccountsRepository implements AccountsRepository {
             }
             logger.debug("Balance is valid! {} == {}", expected, totalSum);
         } finally {
-            final long timeEnd = System.currentTimeMillis();
-            logger.info("Balance validation is completed. Time elapsed = {} (ms)", timeEnd - timeStart);
+            final long timeEnd = System.nanoTime();
+            logger.info("Balance validation is completed. Time elapsed = {} microseconds", (timeEnd - timeStart) / 1_000);
         }
     }
 

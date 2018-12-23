@@ -47,7 +47,7 @@ abstract class AbstractGenerator {
     abstract List<Future<?>> doGenerate(final ExecutorService threadPool);
 
     final List<Long> generate() {
-        final long timeStart = System.currentTimeMillis();
+        final long timeStart = System.nanoTime();
         try {
             logger.info("Generating {}", message);
             final ExecutorService threadPool = Executors.newFixedThreadPool(threadPoolSize);
@@ -55,8 +55,8 @@ abstract class AbstractGenerator {
             threadPool.shutdown();
             waitForCompletion(futures);
         } finally {
-            final long timeEnd = System.currentTimeMillis();
-            logger.info("Generation {} is completed. Time elapsed = {} (ms)", message, timeEnd - timeStart);
+            final long timeEnd = System.nanoTime();
+            logger.info("Generation {} is completed. Time elapsed = {} microseconds", message, (timeEnd - timeStart) / 1_000);
         }
         return Collections.unmodifiableList(new ArrayList<>(ids));
     }
