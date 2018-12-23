@@ -23,7 +23,7 @@ public class Context {
         this.transactionRepository = transactionRepository;
     }
 
-    static Context create() {
+    public static Context create() {
         final PartyRepository partyRepository = new DefaultPartyRepository();
         final AccountsRepository accountsRepository = new DefaultAccountsRepository(partyRepository);
         final TransactionRepository transactionRepository = new DefaultTransactionRepository();

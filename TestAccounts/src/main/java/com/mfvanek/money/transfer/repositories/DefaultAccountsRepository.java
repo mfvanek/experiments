@@ -14,9 +14,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 public class DefaultAccountsRepository implements AccountsRepository {
 
@@ -111,5 +117,14 @@ public class DefaultAccountsRepository implements AccountsRepository {
     @Override
     public PagedResult<Account> getAll(int pageNumber, int recordsPerPage) {
         return PagedResultImpl.from(pageNumber, recordsPerPage, accounts);
+    }
+
+    @Override
+    public Collection<Account> getByHolder(Party holder) {
+        return Collections.unmodifiableCollection(
+                accounts.values().stream()
+                .filter(a -> a.getHolder().equals(holder))
+                .sorted(Comparator.comparing(Account::getId))
+                .collect(Collectors.toList()));
     }
 }

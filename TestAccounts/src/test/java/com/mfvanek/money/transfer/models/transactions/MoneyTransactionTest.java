@@ -2,6 +2,7 @@ package com.mfvanek.money.transfer.models.transactions;
 
 import com.mfvanek.money.transfer.interfaces.repositories.AccountsRepository;
 import com.mfvanek.money.transfer.utils.BaseTest;
+import com.mfvanek.money.transfer.utils.Context;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ class MoneyTransactionTest extends BaseTest {
 
     @Test
     void constructorWithNulls() {
-        final AccountsRepository repository = make();
+        final AccountsRepository repository = Context.create().getAccountsRepository();
 
         NullPointerException e = assertThrows(NullPointerException.class,
                 () -> MoneyTransaction.make(null, null, null, null));
@@ -34,7 +35,7 @@ class MoneyTransactionTest extends BaseTest {
 
     @Test
     void constructorWithInvalidValues() {
-        final AccountsRepository repository = make();
+        final AccountsRepository repository = Context.create().getAccountsRepository();
 
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
                 () -> MoneyTransaction.make(1L, repository.getInvalid(), repository.getInvalid(), BigDecimal.valueOf(-1)));
