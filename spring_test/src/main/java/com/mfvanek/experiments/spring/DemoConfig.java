@@ -14,7 +14,7 @@ class DemoConfig {
 
     @Bean
     public Duck evilDuck() {
-        return new EvilDuck(7);
+        return new EvilDuck(7, messageSource());
     }
 
     @Bean

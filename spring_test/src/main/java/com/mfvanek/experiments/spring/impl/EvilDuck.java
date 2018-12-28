@@ -1,7 +1,6 @@
 package com.mfvanek.experiments.spring.impl;
 
 import com.mfvanek.experiments.spring.interfaces.Duck;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
 import javax.annotation.PostConstruct;
@@ -11,12 +10,11 @@ import java.util.Locale;
 public class EvilDuck implements Duck {
 
     private final int count;
+    private final MessageSource messageSource;
 
-    @Autowired
-    private MessageSource messageSource;
-
-    public EvilDuck(int count) {
+    public EvilDuck(int count, MessageSource messageSource) {
         this.count = count;
+        this.messageSource = messageSource;
     }
 
     @Override
