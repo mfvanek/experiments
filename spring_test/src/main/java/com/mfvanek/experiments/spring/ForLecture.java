@@ -8,7 +8,7 @@ public class ForLecture {
         //final int n = 10;
         // final int[] array = IntStream.range(0, n).toArray();
         // final int[] array = {11, 2, 0, -2, 5, 1, -434, 0, 12, 4};
-        final int[] array = {4, 3, 2, 1};
+        final int[] array = {5,2,4,3,1};
         System.out.println("Original array:");
         Arrays.stream(array).forEach(a -> System.out.print(a + " "));
         System.out.println("\n\n");
@@ -44,10 +44,8 @@ public class ForLecture {
     private static int[] insertionSort(int[] src, boolean show) {
         int[] dest = src.clone();
         for (int i = 1; i < src.length; ++i) {
-            for (int j = 0; j < i; ++j) {
-                if (dest[j] > dest[i]) {
-                    swap(dest, j, i);
-                }
+            for (int j = i - 1; j >= 0 && dest[j] > dest[j + 1]; --j) {
+                swap(dest, j, j + 1);
                 if (show) {
                     Arrays.stream(dest).forEach(a -> System.out.print(a + " "));
                     System.out.println();
