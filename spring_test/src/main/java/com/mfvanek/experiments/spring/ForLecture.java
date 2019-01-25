@@ -1,14 +1,32 @@
 package com.mfvanek.experiments.spring;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ForLecture {
 
     public static void main(String[] args) {
+
+        List<String> lst = new ArrayList<>(Arrays.asList("1s", "2s", "3s"));
+        List<Object> obj = (List<Object>)((List<?>) lst); // you can to do so...
+        obj.add("str");
+        obj.add(new Integer(1));
+        obj.add(new Long(22L));
+        System.out.println(obj);
+
+        System.out.println(lst.size());
+        lst.add("another"); // it's OK
+
+        for (String s : lst) {
+            System.out.println(s); // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
+        }
+
+
         //final int n = 10;
         // final int[] array = IntStream.range(0, n).toArray();
         // final int[] array = {11, 2, 0, -2, 5, 1, -434, 0, 12, 4};
-        final int[] array = {5,2,4,3,1};
+        final int[] array = {5, 2, 4, 3, 1};
         System.out.println("Original array:");
         Arrays.stream(array).forEach(a -> System.out.print(a + " "));
         System.out.println("\n\n");
