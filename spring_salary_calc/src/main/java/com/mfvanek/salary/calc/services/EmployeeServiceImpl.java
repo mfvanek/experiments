@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,11 +20,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Transactional(readOnly = true)
     @Override
-    public Employee findById(final UUID id) {
+    public Optional<Employee> findById(final UUID id) {
         Objects.requireNonNull(id);
-        return employeeRepository
-                .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Employee with id = %s not found", id)));
+        return employeeRepository.findById(id);
     }
 
     @Override
