@@ -3,22 +3,26 @@ package com.mfvanek.salary.calc.entities;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @Entity
 @Table(name = "employees")
 public class Employee {
 
     @Id
     @NotNull
-    @Column
+    @Column(updatable = false, nullable = false)
     private UUID id;
 
     @NotNull
@@ -42,4 +46,8 @@ public class Employee {
     @DecimalMin(value = "100.00")
     @Column(name = "salary_per_hour", nullable = false)
     private BigDecimal salaryPerHour;
+
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    private transient Set<SalaryCalculation> salaryCalculations = new HashSet<>();
 }

@@ -1,6 +1,6 @@
 package com.mfvanek.salary.calc.controllers;
 
-import com.mfvanek.salary.calc.dtos.CreateEmployeeRequest;
+import com.mfvanek.salary.calc.dtos.EmployeeCreationRequest;
 import com.mfvanek.salary.calc.entities.Employee;
 import com.mfvanek.salary.calc.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody CreateEmployeeRequest newEmployee,
+    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeCreationRequest newEmployee,
                                                    UriComponentsBuilder uriComponentsBuilder) {
         final Employee employee = employeeService.create(newEmployee);
         final UriComponents uriComponents = uriComponentsBuilder.path("/employee/{id}").buildAndExpand(employee.getId());

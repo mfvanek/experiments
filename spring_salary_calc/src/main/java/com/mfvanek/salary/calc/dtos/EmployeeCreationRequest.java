@@ -6,7 +6,7 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Data
-public class CreateEmployeeRequest {
+public class EmployeeCreationRequest {
 
     @NotNull
     @NotBlank

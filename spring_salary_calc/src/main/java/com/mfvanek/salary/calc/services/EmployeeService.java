@@ -1,6 +1,6 @@
 package com.mfvanek.salary.calc.services;
 
-import com.mfvanek.salary.calc.dtos.CreateEmployeeRequest;
+import com.mfvanek.salary.calc.dtos.EmployeeCreationRequest;
 import com.mfvanek.salary.calc.entities.Employee;
 
 import java.util.Optional;
@@ -10,5 +10,5 @@ public interface EmployeeService {
 
     Optional<Employee> findById(final UUID id);
 
-    Employee create(final CreateEmployeeRequest request);
+    Employee create(final EmployeeCreationRequest request);
 }
