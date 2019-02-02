@@ -1,4 +1,4 @@
-package com.mfvanek.salary.calc.dtos;
+package com.mfvanek.salary.calc.requests;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package com.mfvanek.salary.calc.services;
 
-import com.mfvanek.salary.calc.dtos.EmployeeCreationRequest;
 import com.mfvanek.salary.calc.entities.Employee;
+import com.mfvanek.salary.calc.requests.EmployeeCreationRequest;
 
 import java.util.Optional;
 import java.util.UUID;

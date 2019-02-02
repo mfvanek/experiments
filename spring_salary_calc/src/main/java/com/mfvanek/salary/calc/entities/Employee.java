@@ -1,5 +1,6 @@
 package com.mfvanek.salary.calc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,7 +48,8 @@ public class Employee {
     @Column(name = "salary_per_hour", nullable = false)
     private BigDecimal salaryPerHour;
 
+    @JsonIgnore
     @Fetch(FetchMode.SUBSELECT)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
-    private transient Set<SalaryCalculation> salaryCalculations = new HashSet<>();
+    private Set<SalaryCalculation> salaryCalculations = new HashSet<>();
 }

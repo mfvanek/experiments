@@ -1,6 +1,6 @@
 package com.mfvanek.salary.calc.services;
 
-import com.mfvanek.salary.calc.dtos.SalaryCalculationOnDateRequest;
+import com.mfvanek.salary.calc.requests.SalaryCalculationOnDateRequest;
 import com.mfvanek.salary.calc.entities.Employee;
 import com.mfvanek.salary.calc.entities.SalaryCalculation;
 import com.mfvanek.salary.calc.repositories.SalaryRepository;

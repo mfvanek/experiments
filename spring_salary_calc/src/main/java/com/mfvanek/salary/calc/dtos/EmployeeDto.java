@@ -2,11 +2,17 @@ package com.mfvanek.salary.calc.dtos;
 
 import lombok.Data;
 
+import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
-public class EmployeeCreationRequest {
+public class EmployeeDto {
+
+    @Id
+    @NotNull
+    private UUID id;
 
     @NotNull
     @NotBlank

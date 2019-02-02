@@ -1,6 +1,6 @@
 package com.mfvanek.salary.calc.controllers;
 
-import com.mfvanek.salary.calc.dtos.SalaryCalculationOnDateRequest;
+import com.mfvanek.salary.calc.requests.SalaryCalculationOnDateRequest;
 import com.mfvanek.salary.calc.entities.SalaryCalculation;
 import com.mfvanek.salary.calc.services.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
