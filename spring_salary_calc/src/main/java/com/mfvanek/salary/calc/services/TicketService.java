@@ -1,15 +1,15 @@
 package com.mfvanek.salary.calc.services;
 
+import com.mfvanek.salary.calc.entities.Employee;
 import com.mfvanek.salary.calc.entities.Ticket;
 import com.mfvanek.salary.calc.requests.SalaryCalculationOnDateRequest;
-import com.mfvanek.salary.calc.entities.Salary;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public interface SalaryService {
+public interface TicketService {
 
-    Optional<Salary> findById(final UUID id);
+    Optional<Ticket> findById(final UUID id);
 
-    Ticket calculateOnDate(final SalaryCalculationOnDateRequest request);
+    Ticket create(final Employee employee, final SalaryCalculationOnDateRequest request);
 }

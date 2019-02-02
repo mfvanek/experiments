@@ -52,4 +52,9 @@ public class Employee {
     @Fetch(FetchMode.SUBSELECT)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
     private Set<Salary> salaries = new HashSet<>();
+
+    @JsonIgnore
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    private Set<Ticket> tickets = new HashSet<>();
 }

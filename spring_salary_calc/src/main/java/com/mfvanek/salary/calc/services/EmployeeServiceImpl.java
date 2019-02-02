@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee create(final EmployeeCreationRequest request) {
         final Employee employee = new Employee(UUID.randomUUID(), request.getFirstName(), request.getLastName(),
-                request.getStandardHoursPerDay(), request.getSalaryPerHour(), new HashSet<>());
+                request.getStandardHoursPerDay(), request.getSalaryPerHour(), new HashSet<>(), new HashSet<>());
         return employeeRepository.save(employee);
     }
 }
