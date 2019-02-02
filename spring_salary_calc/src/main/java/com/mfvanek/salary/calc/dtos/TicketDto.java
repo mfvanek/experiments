@@ -21,4 +21,6 @@ public class TicketDto {
     private UUID employeeId;
 
     private Boolean isActive;
+
+    private UUID salaryId;
 }

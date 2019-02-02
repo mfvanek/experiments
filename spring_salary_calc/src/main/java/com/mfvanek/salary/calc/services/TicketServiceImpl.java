@@ -43,7 +43,7 @@ public class TicketServiceImpl implements TicketService {
         // If it doesn't exist, let's try to add a new one
         try {
             final Ticket newTicket = new Ticket(UUID.randomUUID(), request.getCalculationDate(),
-                    employee, true, objectMapper.writeValueAsString(request));
+                    employee, true, objectMapper.writeValueAsString(request), null);
             return ticketRepository.save(newTicket);
         } catch (Exception e) {
             // TODO write to log

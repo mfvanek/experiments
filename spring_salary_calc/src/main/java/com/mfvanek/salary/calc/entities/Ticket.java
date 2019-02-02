@@ -3,6 +3,7 @@ package com.mfvanek.salary.calc.entities;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(
         name = "tickets",
@@ -43,4 +45,8 @@ public class Ticket {
     @Size(max = 2000)
     @Column(name = "calc_params", length = 2000, nullable = false)
     private String calculationParamsJson;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "salary_id")
+    private Salary salaryId;
 }

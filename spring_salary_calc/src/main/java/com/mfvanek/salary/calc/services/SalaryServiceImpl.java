@@ -1,17 +1,15 @@
 package com.mfvanek.salary.calc.services;
 
-import com.mfvanek.salary.calc.entities.Ticket;
-import com.mfvanek.salary.calc.requests.SalaryCalculationOnDateRequest;
 import com.mfvanek.salary.calc.entities.Employee;
 import com.mfvanek.salary.calc.entities.Salary;
+import com.mfvanek.salary.calc.entities.Ticket;
 import com.mfvanek.salary.calc.repositories.SalaryRepository;
+import com.mfvanek.salary.calc.requests.SalaryCalculationOnDateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,6 +27,9 @@ public class SalaryServiceImpl implements SalaryService {
     @Autowired
     private TicketService ticketService;
 
+    @Autowired
+    private SalaryCalculationService salaryCalculationService;
+
     @Transactional(readOnly = true)
     @Override
     public Optional<Salary> findById(final UUID id) {
@@ -43,16 +44,8 @@ public class SalaryServiceImpl implements SalaryService {
         if (!employee.isPresent()) {
             throw new EntityNotFoundException(String.format("Employee with id = %s not found", request.getEmployeeId()));
         }
-        return ticketService.create(employee.get(), request);
-//        final BigDecimal totalAmount = calculateTotalAmount(employee.get(), request.getWorkingDaysCount());
-//        final Salary salary = new Salary(UUID.randomUUID(),
-//                request.getCalculationDate(), request.getWorkingDaysCount(), totalAmount, employee.get());
-//        return salaryRepository.save(salary);
-    }
-
-    private BigDecimal calculateTotalAmount(final Employee employee, int workingDaysCount) {
-        final BigDecimal salaryPerHour = employee.getSalaryPerHour();
-        final BigDecimal totalHours = BigDecimal.valueOf(workingDaysCount * employee.getStandardHoursPerDay());
-        return salaryPerHour.multiply(totalHours);
+        final Ticket ticket = ticketService.create(employee.get(), request);
+        salaryCalculationService.submit(ticket, employee.get(), request);
+        return ticket;
     }
 }

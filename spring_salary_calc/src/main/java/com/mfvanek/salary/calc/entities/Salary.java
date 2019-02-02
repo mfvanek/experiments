@@ -41,6 +41,9 @@ public class Salary {
     @JoinColumn(name = "emp_id", nullable = false)
     private Employee employeeId;
 
+    @OneToOne(mappedBy = "salaryId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Ticket ticket;
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder(19, 41)
