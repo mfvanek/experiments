@@ -2,7 +2,7 @@ package com.mfvanek.salary.calc.services;
 
 import com.mfvanek.salary.calc.requests.SalaryCalculationOnDateRequest;
 import com.mfvanek.salary.calc.entities.Employee;
-import com.mfvanek.salary.calc.entities.SalaryCalculation;
+import com.mfvanek.salary.calc.entities.Salary;
 import com.mfvanek.salary.calc.repositories.SalaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,22 +23,22 @@ public class SalaryServiceImpl implements SalaryService {
     private EmployeeService employeeService;
 
     @Override
-    public Optional<SalaryCalculation> findById(final UUID id) {
+    public Optional<Salary> findById(final UUID id) {
         Objects.requireNonNull(id);
         return salaryRepository.findById(id);
     }
 
     @Override
-    public SalaryCalculation calculateOnDate(final SalaryCalculationOnDateRequest request) {
+    public Salary calculateOnDate(final SalaryCalculationOnDateRequest request) {
         Objects.requireNonNull(request);
         final Optional<Employee> employee = employeeService.findById(request.getEmployeeId());
         if (!employee.isPresent()) {
             throw new EntityNotFoundException(String.format("Employee with id = %s not found", request.getEmployeeId()));
         }
         final BigDecimal totalAmount = calculateTotalAmount(employee.get(), request.getWorkingDaysCount());
-        final SalaryCalculation salaryCalculation = new SalaryCalculation(UUID.randomUUID(),
+        final Salary salary = new Salary(UUID.randomUUID(),
                 request.getCalculationDate(), request.getWorkingDaysCount(), totalAmount, employee.get());
-        return salaryRepository.save(salaryCalculation);
+        return salaryRepository.save(salary);
     }
 
     private BigDecimal calculateTotalAmount(final Employee employee, int workingDaysCount) {

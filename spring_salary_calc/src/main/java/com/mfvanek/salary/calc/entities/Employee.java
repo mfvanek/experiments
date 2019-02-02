@@ -51,5 +51,5 @@ public class Employee {
     @JsonIgnore
     @Fetch(FetchMode.SUBSELECT)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
-    private Set<SalaryCalculation> salaryCalculations = new HashSet<>();
+    private Set<Salary> salaries = new HashSet<>();
 }

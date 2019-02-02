@@ -10,7 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -18,7 +17,7 @@ import java.util.UUID;
 @Getter
 @Entity
 @Table(name = "salary_calc")
-public class SalaryCalculation {
+public class Salary {
 
     @Id
     @NotNull
@@ -59,22 +58,22 @@ public class SalaryCalculation {
             return true;
         }
 
-        if (!(o instanceof SalaryCalculation)) {
+        if (!(o instanceof Salary)) {
             return false;
         }
 
-        SalaryCalculation other = (SalaryCalculation) o;
+        Salary other = (Salary) o;
         return new EqualsBuilder()
                 .append(this.id, other.id)
                 .isEquals();
     }
-
-    public void setEmployeeId(final Employee employee) {
-        Objects.requireNonNull(employee);
-        if (this.employeeId != null && this.employeeId != employee) {
-            throw new IllegalStateException("EmployeeId is already set");
-        }
-
-        this.employeeId = employee;
-    }
+//
+//    public void setEmployeeId(final Employee employee) {
+//        Objects.requireNonNull(employee);
+//        if (this.employeeId != null && this.employeeId != employee) {
+//            throw new IllegalStateException("EmployeeId is already set");
+//        }
+//
+//        this.employeeId = employee;
+//    }
 }

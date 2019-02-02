@@ -35,14 +35,14 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> getEmployee(@PathVariable UUID id) {
         final Optional<Employee> employee = employeeService.findById(id);
-        final HttpStatus status = employee.isPresent()? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        final HttpStatus status = employee.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         final EmployeeDto employeeDto = convertToDto(employee.orElse(new Employee()));
         return new ResponseEntity<>(employeeDto, status);
     }
 
     @PostMapping
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeCreationRequest newEmployee,
-                                                   UriComponentsBuilder uriComponentsBuilder) {
+                                                      UriComponentsBuilder uriComponentsBuilder) {
         final Employee employee = employeeService.create(newEmployee);
         final UriComponents uriComponents = uriComponentsBuilder.path("/employee/{id}").buildAndExpand(employee.getId());
         final HttpHeaders headers = new HttpHeaders();
