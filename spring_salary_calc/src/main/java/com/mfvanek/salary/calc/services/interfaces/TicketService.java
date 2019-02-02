@@ -1,4 +1,4 @@
-package com.mfvanek.salary.calc.services;
+package com.mfvanek.salary.calc.services.interfaces;
 
 import com.mfvanek.salary.calc.entities.Employee;
 import com.mfvanek.salary.calc.entities.Ticket;

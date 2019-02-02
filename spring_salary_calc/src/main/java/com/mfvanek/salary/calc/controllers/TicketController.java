@@ -2,7 +2,7 @@ package com.mfvanek.salary.calc.controllers;
 
 import com.mfvanek.salary.calc.dtos.TicketDto;
 import com.mfvanek.salary.calc.entities.Ticket;
-import com.mfvanek.salary.calc.services.TicketService;
+import com.mfvanek.salary.calc.services.interfaces.TicketService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -46,7 +46,7 @@ public class Ticket {
     @Column(name = "calc_params", length = 2000, nullable = false)
     private String calculationParamsJson;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "salary_id")
     private Salary salaryId;
 }

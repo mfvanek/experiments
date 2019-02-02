@@ -6,8 +6,10 @@ import com.mfvanek.salary.calc.entities.Ticket;
 import com.mfvanek.salary.calc.repositories.SalaryRepository;
 import com.mfvanek.salary.calc.repositories.TicketRepository;
 import com.mfvanek.salary.calc.requests.SalaryCalculationOnDateRequest;
+import com.mfvanek.salary.calc.services.interfaces.SalaryCalculationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PreDestroy;
 import java.math.BigDecimal;
@@ -15,6 +17,7 @@ import java.util.UUID;
 import java.util.concurrent.*;
 
 @Service
+@Transactional
 public class SalaryCalculationServiceImpl implements SalaryCalculationService {
 
     @Autowired
@@ -44,6 +47,7 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
         }
     }
 
+    // TODO need transaction!
     private Salary calculateOnDate(final Ticket ticket, final Employee employee, final SalaryCalculationOnDateRequest request) {
         // TODO
         try {

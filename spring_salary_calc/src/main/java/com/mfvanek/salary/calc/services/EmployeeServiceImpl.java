@@ -3,6 +3,7 @@ package com.mfvanek.salary.calc.services;
 import com.mfvanek.salary.calc.entities.Employee;
 import com.mfvanek.salary.calc.repositories.EmployeeRepository;
 import com.mfvanek.salary.calc.requests.EmployeeCreationRequest;
+import com.mfvanek.salary.calc.services.interfaces.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
