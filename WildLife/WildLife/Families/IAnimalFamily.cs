@@ -1,4 +1,5 @@
-﻿using WildLife.Animals;
+﻿using System.Collections.Generic;
+using WildLife.Animals;
 
 namespace WildLife.Families
 {
@@ -9,5 +10,9 @@ namespace WildLife.Families
         Animal GetOldSpecimen(bool isMale);
 
         Animal GetYoungSpecimen(bool isMale);
+
+        IEnumerable<Animal> GetAll();
+
+        IAnimalFamily Add(Animal animal);
     }
 }
