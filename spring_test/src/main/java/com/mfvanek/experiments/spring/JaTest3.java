@@ -1,18 +1,19 @@
 package com.mfvanek.experiments.spring;
 
-import java.util.*;
+import java.io.*;
 
 public class JaTest3 {
 
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            int n = scanner.nextInt();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            int n = Integer.parseInt(reader.readLine(), 10);
             int[] arr = new int[n];
             int current = 0;
             int idx = 0;
             boolean first = true;
             for (int i = 0; i < n; ++i) {
-                int item = scanner.nextInt();
+                int item = Integer.parseInt(reader.readLine(), 10);
                 if (first) {
                     current = item;
                     arr[idx] = item;
@@ -30,6 +31,7 @@ public class JaTest3 {
             for (int i = 0; i < idx; ++i) {
                 System.out.println(arr[i]);
             }
+        } catch (IOException e) {
         }
     }
 }
