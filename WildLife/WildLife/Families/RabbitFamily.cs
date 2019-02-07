@@ -3,25 +3,25 @@ using WildLife.Animals;
 
 namespace WildLife.Families
 {
-    public sealed class RabbitFamily : IAnimalFamily
+    public sealed class RabbitFamily : AbstractAnimalFamily
     {
         private static IAnimalFamily instance = null;
 
         private RabbitFamily() {}
 
-        public Animal GetAdultSpecimen(bool isMale)
+        public override Animal GetAdultSpecimen(bool isMale)
         {
-            return isMale ? Wolf.GetAdultMale() : Wolf.GetAdultFemale();
+            return Rabbit.GetAdult(isMale);
         }
 
-        public Animal GetOldSpecimen(bool isMale)
+        public override Animal GetOldSpecimen(bool isMale)
         {
-            throw new NotSupportedException("Old wolves don't survive");
+            throw new NotSupportedException("Old rabbits don't survive");
         }
 
-        public Animal GetYoungSpecimen(bool isMale)
+        public override Animal GetYoungSpecimen(bool isMale)
         {
-            return isMale ? Wolf.GetYoungMale() : Wolf.GetYoungFemale();
+            return Rabbit.GetYoung(isMale);
         }
 
         public static IAnimalFamily Instance

@@ -3,23 +3,23 @@ using WildLife.Animals;
 
 namespace WildLife.Families
 {
-    public sealed class WolfFamily : IAnimalFamily
+    public sealed class WolfFamily : AbstractAnimalFamily
     {
         private static IAnimalFamily instance = null;
 
         private WolfFamily() {}
 
-        public Animal GetAdultSpecimen(bool isMale)
+        public override Animal GetAdultSpecimen(bool isMale)
         {
             return isMale ? Wolf.GetAdultMale() : Wolf.GetAdultFemale();
         }
 
-        public Animal GetOldSpecimen(bool isMale)
+        public override Animal GetOldSpecimen(bool isMale)
         {
             throw new NotSupportedException("Old wolves don't survive");
         }
 
-        public Animal GetYoungSpecimen(bool isMale)
+        public override Animal GetYoungSpecimen(bool isMale)
         {
             return isMale ? Wolf.GetYoungMale() : Wolf.GetYoungFemale();
         }
