@@ -31,7 +31,7 @@ namespace WildLife.Forest
             Plant anyPlant = plants.First();
             foreach (var herbivorousFamily in herbivorous)
             {
-                foreach (var animal in herbivorousFamily.GetAll())
+                foreach (var animal in herbivorousFamily)
                 {
                     allHerbivorousAnimals.Add(animal);
                     if (animal.Eat(anyPlant))
@@ -44,12 +44,19 @@ namespace WildLife.Forest
 
             foreach (var carnivorousFamily in carnivorous)
             {
-                foreach (var animal in carnivorousFamily.GetAll())
+                foreach (var animal in carnivorousFamily)
                 {
                     Animal target = allHerbivorousAnimals.Where(a => a.IsAlive).First();
                     if (animal.Attack(target))
                     {
                         Console.WriteLine($"Animal {target} has been eaten by {animal}");
+                    }
+                    else
+                    {
+                        if (!target.IsAlive)
+                        {
+                            Console.WriteLine($"Animal {target} has been killed by {animal}");
+                        }
                     }
                 }
             }

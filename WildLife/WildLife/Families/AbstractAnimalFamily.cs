@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using WildLife.Animals;
 
@@ -17,6 +18,16 @@ namespace WildLife.Families
         {
             animals.Add(animal);
             return this;
+        }
+
+        public IEnumerator<Animal> GetEnumerator()
+        {
+            return animals.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return animals.GetEnumerator();
         }
     }
 }

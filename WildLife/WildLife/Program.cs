@@ -11,7 +11,7 @@ namespace WildLife
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Hello WildLife!");
+            Console.WriteLine("Hello WildLife!\n\n");
 
             IForest forest = new Forester()
                 .AddPlant(new Carrot(), 3)

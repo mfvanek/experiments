@@ -3,10 +3,10 @@ using WildLife.Animals;
 
 namespace WildLife.Families
 {
-    public interface IAnimalFamily
+    public interface IAnimalFamily : IEnumerable<Animal>
     {
-        IEnumerable<Animal> GetAll();
-
         IAnimalFamily Add(Animal animal);
+
+        IEnumerable<Animal> GetAll();
     }
 }
