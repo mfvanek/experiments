@@ -21,20 +21,23 @@ public class JaTest4 {
         try (Scanner scanner = new Scanner(System.in)) {
             int n = Integer.parseInt(scanner.nextLine());
             if (n > 0) {
-                gen(0, 0, n, "");
+                char[] str = new char[2*n];
+                gen(0, 0, n, 0, str);
             }
         }
     }
 
-    private static void gen(int leftBraces, int rightBraces, int n, String str) {
+    private static void gen(int leftBraces, int rightBraces, int n, int iteration, char[] str) {
         if (leftBraces == n && rightBraces == n) {
             System.out.println(str);
         } else {
             if (leftBraces < n) {
-                gen(leftBraces + 1, rightBraces, n, str + "(");
+                str[iteration] = '(';
+                gen(leftBraces + 1, rightBraces, n, iteration + 1, str);
             }
             if (rightBraces < leftBraces) {
-                gen(leftBraces, rightBraces + 1, n, str + ")");
+                str[iteration] = ')';
+                gen(leftBraces, rightBraces + 1, n, iteration + 1, str);
             }
         }
     }
