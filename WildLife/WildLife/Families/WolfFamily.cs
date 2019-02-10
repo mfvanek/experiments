@@ -1,38 +1,20 @@
-﻿using System;
-using WildLife.Animals;
-
-namespace WildLife.Families
+﻿namespace WildLife.Families
 {
     public sealed class WolfFamily : AbstractAnimalFamily
     {
-        private static IAnimalFamily instance = null;
+        private static IAnimalFamily one = null;
 
         private WolfFamily() {}
 
-        public override Animal GetAdultSpecimen(bool isMale)
-        {
-            return isMale ? Wolf.GetAdultMale() : Wolf.GetAdultFemale();
-        }
-
-        public override Animal GetOldSpecimen(bool isMale)
-        {
-            throw new NotSupportedException("Old wolves don't survive");
-        }
-
-        public override Animal GetYoungSpecimen(bool isMale)
-        {
-            return isMale ? Wolf.GetYoungMale() : Wolf.GetYoungFemale();
-        }
-
-        public static IAnimalFamily Instance
+        public static IAnimalFamily One
         {
             get
             {
-                if (instance == null)
+                if (one == null)
                 {
-                    instance = new WolfFamily();
+                    one = new WolfFamily();
                 }
-                return instance;
+                return one;
             }
         }
     }

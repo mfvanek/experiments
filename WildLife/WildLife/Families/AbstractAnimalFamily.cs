@@ -18,9 +18,5 @@ namespace WildLife.Families
             animals.Add(animal);
             return this;
         }
-
-        public abstract Animal GetAdultSpecimen(bool isMale);
-        public abstract Animal GetOldSpecimen(bool isMale);
-        public abstract Animal GetYoungSpecimen(bool isMale);
     }
 }

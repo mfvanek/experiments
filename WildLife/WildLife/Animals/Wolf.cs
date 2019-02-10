@@ -9,7 +9,7 @@ namespace WildLife.Animals
         private static Wolf adultMale = null;
 
         private Wolf(bool isMale, int age)
-            : base(WolfLifecycle.Instance, new SilentAttack(), isMale, age)
+            : base(WolfLifecycle.One, new SilentAttack(), isMale, age)
         {}
 
         public string Howl()
@@ -49,24 +49,24 @@ namespace WildLife.Animals
         {
             if (adultMale == null)
             {
-                adultMale = new Wolf(true, WolfLifecycle.Instance.GetOldAge() - 1);
+                adultMale = new Wolf(true, WolfLifecycle.One.GetOldAge() - 1);
             }
             return adultMale;
         }
 
         public static Wolf GetAdultFemale()
         {
-            return new Wolf(false, WolfLifecycle.Instance.GetOldAge() - 1);
+            return new Wolf(false, WolfLifecycle.One.GetOldAge() - 1);
         }
 
         public static Wolf GetYoungMale()
         {
-            return new Wolf(true, WolfLifecycle.Instance.GetAdultAge() - 1);
+            return new Wolf(true, WolfLifecycle.One.GetAdultAge() - 1);
         }
 
         public static Wolf GetYoungFemale()
         {
-            return new Wolf(false, WolfLifecycle.Instance.GetAdultAge() - 1);
+            return new Wolf(false, WolfLifecycle.One.GetAdultAge() - 1);
         }
     }
 }

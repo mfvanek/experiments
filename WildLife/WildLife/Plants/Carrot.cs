@@ -8,5 +8,10 @@ namespace WildLife.Plants
         {
             Console.WriteLine("The carrot is growing up");
         }
+
+        public override string ToString()
+        {
+            return "Carrot";
+        }
     }
 }

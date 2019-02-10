@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using WildLife.Families;
 using WildLife.Animals;
+using WildLife.Forest;
+using WildLife.Plants;
 
 namespace WildLife
 {
@@ -11,22 +12,14 @@ namespace WildLife
         {
 
             Console.WriteLine("Hello WildLife!");
-            List<Animal> wolfPack = new List<Animal>()
-            {
-                WolfFamily.Instance.GetAdultSpecimen(true),
-                WolfFamily.Instance.GetAdultSpecimen(false),
-                WolfFamily.Instance.GetAdultSpecimen(false),
-                WolfFamily.Instance.GetYoungSpecimen(true),
-                WolfFamily.Instance.GetYoungSpecimen(true),
-                WolfFamily.Instance.GetYoungSpecimen(true),
-                WolfFamily.Instance.GetYoungSpecimen(true),
-                WolfFamily.Instance.GetYoungSpecimen(false),
-                WolfFamily.Instance.GetYoungSpecimen(false),
-                WolfFamily.Instance.GetYoungSpecimen(false),
-                WolfFamily.Instance.GetYoungSpecimen(false),
-            };
 
-            wolfPack.ForEach(w => Console.WriteLine(w));
+            IForest forest = new Forester()
+                .AddPlant(new Carrot(), 3)
+                .AddHerbivorous(RabbitFamily.One.Add(Rabbit.GetAdult(true)).Add(Rabbit.GetAdult(false)).Add(Rabbit.GetAdult(false)).Add(Rabbit.GetAdult(false)))
+                .AddCarnivorous(WolfFamily.One.Add(Wolf.GetAdultMale()).Add(Wolf.GetAdultFemale()).Add(Wolf.GetYoungMale()).Add(Wolf.GetYoungMale()))
+                .Make();
+
+            forest.Simulate();
 
             Console.ReadKey();
         }

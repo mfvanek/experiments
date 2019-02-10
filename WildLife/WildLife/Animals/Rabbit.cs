@@ -43,6 +43,11 @@ namespace WildLife.Animals
             Console.WriteLine("The rabbit doesn't bite anyone");
         }
 
+        public override string ToString()
+        {
+            return $"Rabbit[{Generation}, {Age}, {IsMale}]";
+        }
+
         public static Rabbit GetYoung(bool isMale)
         {
             return new Rabbit(isMale, RabbitLifecycle.Instance.GetAdultAge() - 1);

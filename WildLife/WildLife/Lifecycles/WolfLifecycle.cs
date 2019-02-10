@@ -4,7 +4,7 @@ namespace WildLife.Lifecycles
 {
     public sealed class WolfLifecycle : ILifecycle
     {
-        private static ILifecycle instance = null;
+        private static ILifecycle one = null;
 
         private WolfLifecycle() {}
 
@@ -37,15 +37,15 @@ namespace WildLife.Lifecycles
             return 3;
         }
 
-        public static ILifecycle Instance
+        public static ILifecycle One
         {
             get
             {
-                if (instance == null)
+                if (one == null)
                 {
-                    instance = new WolfLifecycle();
+                    one = new WolfLifecycle();
                 }
-                return instance;
+                return one;
             }
         }
     }
