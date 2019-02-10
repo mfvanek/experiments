@@ -1,14 +1,16 @@
 package com.mfvanek.experiments.spring;
 
 import java.io.*;
+import java.util.*;
 
 public class JaTest3 {
 
     public static void main(String[] args) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             int n = Integer.parseInt(reader.readLine());
-            // TODO dynamic array is needed here
-            int[] array = new int[n];
+            int delta = Math.max(n / 10, 1);
+            int curSize = delta;
+            int[] array = new int[curSize];
             int current = 0;
             int idx = 0;
             int item;
@@ -23,6 +25,10 @@ public class JaTest3 {
                 } else {
                     if (current != item) {
                         current = item;
+                        if (curSize == idx) {
+                            curSize = curSize + delta;
+                            array = Arrays.copyOf(array, curSize);
+                        }
                         array[idx] = item;
                         ++idx;
                     }
