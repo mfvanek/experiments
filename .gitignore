@@ -4,3 +4,4 @@
 bin
 obj
 packages
+/spring_test/output.txt
