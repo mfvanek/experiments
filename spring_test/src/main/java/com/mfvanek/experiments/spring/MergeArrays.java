@@ -5,6 +5,9 @@ import java.util.Arrays;
 public class MergeArrays {
 
     public static void main(String[] args) {
+
+        System.out.println("100".compareTo("99"));
+
         int[] a = {1, 3, 6, 7};
         int[] b = {2, 4, 6, 22};
         int n = a.length + b.length;
