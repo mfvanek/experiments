@@ -12,17 +12,20 @@ abc -> abc
     */
     public static void main(String[] args) {
 
-        String str = "abc";
-        // permute(str);
-        permute2(str);
+        String str = "aba";
+        permute_v1(str);
+        System.out.println("--------------");
+        permute_v2(str);
+        System.out.println("--------------");
+        permute_v3(str);
     }
 
-    private static void permute2(String str) {
-        List<String> res = permute3(str);
+    private static void permute_v2(String str) {
+        List<String> res = permuteUnique(str);
         res.forEach(System.out::println);
     }
 
-    private static List<String> permute3(String str) {
+    private static List<String> permuteUnique(String str) {
         final List<String> res = new ArrayList<>();
 
         if (str == null) {
@@ -35,7 +38,7 @@ abc -> abc
         }
 
         char first = str.charAt(0);
-        List<String> words = permute3(str.substring(1));
+        List<String> words = permuteUnique(str.substring(1));
         for (String word : words) {
             for (int i = 0; i <= word.length(); ++i) {
                 String perm = insertCharAt(word, first, i);
@@ -58,20 +61,21 @@ abc -> abc
         return word.substring(0, i) + first + word.substring(i);
     }
 
-    private static void permute(String str) {
+    private static void permute_v1(String str) {
         char[] arr = str.toCharArray();
-        permute(arr, 0, str.length());
+        permute_v1(arr, 0, str.length());
     }
 
-    private static void permute(char[] arr, int start, int end) {
+    private static void permute_v1(char[] arr, int start, int end) {
         if (start == end) {
             System.out.println(arr);
+            return;
         }
 
         for (int i = start; i < end; ++i) {
             swap(arr, start, i);
             System.out.println(" - " + start + " -- " + String.valueOf(arr));
-            permute(arr, start + 1, end);
+            permute_v1(arr, start + 1, end);
             swap(arr, start, i);
         }
     }
@@ -80,5 +84,34 @@ abc -> abc
         char tmp = arr[s];
         arr[s] = arr[i];
         arr[i] = tmp;
+    }
+
+    private static void permute_v3(String str) {
+        char[] arr = str.toCharArray();
+        permute_v3(arr, 0, str.length());
+    }
+
+    private static void permute_v3(char[] str, int s, int e) {
+        if (s == e) {
+            System.out.println(str);
+            return;
+        }
+
+        for (int i = s; i < e; ++i) {
+            if (shouldSwap(str, s, i)) {
+                swap(str, i, s);
+                permute_v3(str, s + 1, e);
+                swap(str, i, s);
+            }
+        }
+    }
+
+    private static boolean shouldSwap(char[] str, int s, int curr) {
+        for (int i = s; i < curr; ++i) {
+            if (str[i] == str[curr]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
