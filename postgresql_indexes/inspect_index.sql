@@ -19,3 +19,5 @@ left join (
 where t.schemaname='public'
 and indexname like 'idx_ref%'
 order by 1,2;
+								  
+-- select * from pg_catalog.pg_stats where tablename = 'test' and null_frac > 0; -- null values exist
